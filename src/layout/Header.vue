@@ -33,7 +33,8 @@
           <router-link class="nav-link mx-2" to="">Khóa Học</router-link>
         </li>
         <li class="nav-item ms-3" v-if="Logined == false">
-          <router-link class="btn btn-black btn-primary" to="/login">Đăng nhập</router-link>
+          <router-link class="btn btn-black btn-primary" to="/login" style="margin-right:5px;">Đăng nhập</router-link>
+          <router-link class="btn btn-black btn-primary" to="/register">Đăng ký</router-link>
         </li>
       </ul>
     </div>

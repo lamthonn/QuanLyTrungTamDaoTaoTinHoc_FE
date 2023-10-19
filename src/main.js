@@ -14,5 +14,3 @@ createApp(App)
     .use(router)
     .use(Carousel)
     .mount('#app')
-
-app.config.globalProperties.$message = message;
