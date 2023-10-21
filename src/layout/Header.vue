@@ -32,9 +32,25 @@
         <li class="nav-item">
           <router-link class="nav-link mx-2" to="">Khóa Học</router-link>
         </li>
-        <li class="nav-item ms-3" v-if="Logined == false">
+        <li class="nav-item ms-3" v-if="logined === false ">
           <router-link class="btn btn-black btn-primary" to="/login" style="margin-right:5px;">Đăng nhập</router-link>
           <router-link class="btn btn-black btn-primary" to="/register">Đăng ký</router-link>
+        </li>
+        <li class="nav-item ms-3" v-else>
+          <a-dropdown-button>
+            {{ username }}
+            <template #overlay>
+              <a-menu @click="handleMenuClick">
+                <a-menu-item key="1">
+                  Thông tin cá nhân
+                </a-menu-item>
+                <a-menu-item key="2" @click="LogOut">
+                  Đăng xuất
+                </a-menu-item>
+              </a-menu>
+            </template>
+            <template #icon><UserOutlined /></template>
+          </a-dropdown-button>
         </li>
       </ul>
     </div>
@@ -44,25 +60,36 @@
 </template>
 
 <script>
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import { Menu, MenuItem, DropdownButton }  from 'ant-design-vue/es/components'
+import { UserOutlined } from '@ant-design/icons-vue';
 export default {
   name: "Header-",
-  components: {},
-  data() {
-    return{
-      Logined: false,
-      HocVien: false,
-      GiangVien: false,
-      Admin: false,
-    }
+  components: {
+    AMenu: Menu,
+    AMenuItem:MenuItem,
+    ADropdownButton:DropdownButton,
+    UserOutlined
   },
-  created(){
-    this.Logined = this.$store.state.logined,
-    this.HocVien = this.$store.state.Hocvien,
-    this.GiangVien = this.$store.state.GiangVien,
-    this.Admin = this.$store.state.admin
-  },
+  
   setup() { 
-    
+    const logined = computed(() => store.state.logined || localStorage.getItem('logined') === 'true')
+    const username = computed(() => store.state.username || localStorage.getItem('username'))
+    const Role = ref('')
+    const store = useStore()
+
+    const LogOut = () => {
+       store.dispatch('logout')
+    }
+    return{
+      logined,
+      Role,
+      store,
+      username,
+
+      LogOut,
+    }
   },
 };
 </script>
