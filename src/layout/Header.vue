@@ -30,7 +30,7 @@
           <router-link class="nav-link mx-2" to="/about">Giới Thiệu</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link mx-2" to="">Khóa Học</router-link>
+          <router-link class="nav-link mx-2" to="/recourses">Khóa Học</router-link>
         </li>
         <li class="nav-item ms-3" v-if="logined == 'false' ">
           <router-link class="btn btn-black btn-primary" to="/login" style="margin-right:5px;">Đăng nhập</router-link>
