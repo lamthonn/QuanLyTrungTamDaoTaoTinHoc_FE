@@ -5,7 +5,9 @@ export default createStore({
   state: {
     Role: '',
     logined: false,
-    username:''
+    username:'',
+    token:'',
+
   },
   getters: {
   },
@@ -18,35 +20,20 @@ export default createStore({
         .catch("đăng ký thất bại!")
     },
 
-    async LOGIN(state, login){
-      state.logined = true
-      localStorage.setItem('isLogin',state.logined)
-      state.username = login.account
-      localStorage.setItem('username',state.username)
-      if(login.roleId === 1)
-      {
-        state.Role = 'admin'
-        localStorage.setItem('Role',state.Role)
-      }
-      else if(login.roleId === 2)
-      {
-        state.Role = 'HocVien'
-        localStorage.setItem('Role',state.Role)
-      }
-      else if(login.roleId === 3)
-      {
-        state.Role = 'GiangVien'
-        localStorage.setItem('Role',state.Role)
-      }
+    async SETTOKEN(state, AccessToken){
+      state.logined = true;
+      localStorage.setItem("LOGINED", state.logined)
+      state.username = AccessToken.Account;
+      localStorage.setItem("USERNAME", state.username)
+      state.Role = AccessToken.RoleId;
+      localStorage.setItem("ROLE", state.Role)
     },
 
     LOGOUT(state){
       state.logined = false
-      localStorage.setItem('isLogin',state.logined)
-      state.Role = ''
-      state.username = ''
-      localStorage.setItem('username',state.username)
-      localStorage.setItem('Role',state.Role)
+      localStorage.setItem('LOGINED',state.logined)
+      localStorage.removeItem("USERNAME");
+      localStorage.removeItem("ROLE");
     }
   },
   actions: {
@@ -57,7 +44,7 @@ export default createStore({
 
     async login({commit} ,credentials)
     {
-      commit('LOGIN',credentials)
+      commit('SETTOKEN',credentials)
     },
 
     logout({commit})
