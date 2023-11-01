@@ -1,0 +1,347 @@
+<template >
+  <div style=" width:90%; margin:20px 5%">
+    <a-card style="width: 100%; background-color: rgb(233, 233, 233);">
+        <div class="cardHeader">
+            <a-card class="cardHeader-content">
+                <a-card-grid style="width: 50%; text-align: left" class="cardLeft">
+                    <h4><i class="fa-solid fa-user"></i> Tài Khoản: {{ username }}</h4>
+                    <h6><i class="fa-solid fa-envelope"></i> Email: {{ email }}</h6>
+                    <h6><i class="fa-solid fa-envelope"></i> Điện Thoại: {{ phone }}</h6>
+                    <h6><i class="fa-solid fa-envelope"></i> Địa Chỉ: {{ address }}</h6>
+                </a-card-grid>
+                <a-card-grid style="width: 50%; text-align: center" class="cardRight">
+                    <img src="../assets/information/logo_pts.png" style="width: 50%;" alt="" />
+                    <h3 style="font-align:center; margin-top:10px; color:white;">Cài đặt tài khoản</h3>
+                </a-card-grid>
+                    
+            </a-card>
+        </div>
+
+        <div class="cardBody">
+            <a-card class="cardBody-content">
+                <a-card-grid style="width: 100%;" class="content-grid">
+                    <div class="contentGrid-left">
+                        <p style="margin:0; font-size:20px;">{{ role === '1' ? "Học viên: " : "Giảng viên: " }}</p>
+                        <h3>{{ username }}</h3>
+                    </div>
+                    <div style="margin:0;" class="contentGrid-right" >
+                        <a-button type="primary" :size="size">
+                            <template #icon>
+                                <GlobalOutlined />
+                            </template>
+                            Trang xã hội
+                        </a-button>
+                    </div>
+                </a-card-grid>
+
+                <!-- Họ và tên -->
+                <a-card-grid style="width: 100%;" class="content-grid">
+                    <div class="contentGrid-left" style="display:flex; align-items: center;">
+                        <div class="icon"><UserOutlined style="margin-right:10px; font-size:20px;"/></div>
+                        <div>
+                            <p style="margin:0;">Họ và tên:</p>
+                            <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ name }}</p>
+                        </div>
+                    </div>
+                    <div style="margin:0;" class="contentGrid-right" >
+                        <a-button type="primary" @click="showModalTen">Sửa đổi</a-button>
+                        <a-modal v-model:open="openten" title="chỉnh sửa thông tin" @ok="handleOk" >
+                            <a-input v-model:value="hotentxt" placeholder="Chỉnh sửa họ tên" />
+                        </a-modal>
+                    </div>
+                </a-card-grid>
+                
+                <!-- Email -->
+                <a-card-grid style="width: 100%;" class="content-grid">
+                    <div class="contentGrid-left" style="display:flex; align-items: center;">
+                        <div class="icon"><MailOutlined style="margin-right:10px; font-size:20px;"/></div>
+                        <div>
+                            <p style="margin:0;">Email:</p>
+                            <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ email ? email : "--trống--" }}</p>
+                        </div>
+                    </div>
+                    <div style="margin:0;" class="contentGrid-right" >
+                        <a-button type="primary" @click="showModalEmail">Sửa đổi</a-button>
+                        <a-modal v-model:open="openemail" title="chỉnh sửa thông tin" @ok="handleOk">
+                            <a-input v-model:value="emailtxt" placeholder="Chỉnh sửa email" />
+                        </a-modal>
+                    </div>
+                </a-card-grid>
+                
+                <!-- địa chỉ -->
+                <a-card-grid style="width: 100%;" class="content-grid">
+                    <div class="contentGrid-left" style="display:flex; align-items: center;">
+                        <div class="icon"><HomeOutlined style="margin-right:10px; font-size:20px;"/></div>
+                        <div>
+                            <p style="margin:0;">Địa chỉ:</p>
+                            <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ address ? address : "--trống--" }}</p>
+                        </div>
+                    </div>
+                    <div style="margin:0;" class="contentGrid-right" >
+                        <a-button type="primary" @click="showModalDiaChi">Sửa đổi</a-button>
+                        <a-modal v-model:open="opendiachi" title="chỉnh sửa thông tin" @ok="handleOk">
+                            <a-input v-model:value="address_txt" placeholder="Chỉnh sửa địa chỉ" />
+                        </a-modal>
+                    </div>
+                </a-card-grid>
+
+                <!-- ngày sinh -->
+                <a-card-grid style="width: 100%;" class="content-grid">
+                    <div class="contentGrid-left" style="display:flex; align-items: center;">
+                        <div class="icon"><CalendarOutlined style="margin-right:10px; font-size:20px;"/></div>
+                        <div>
+                            <p style="margin:0;">Ngày sinh:</p>
+                            <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ date ? date : "--trống--"}}</p>
+                        </div>
+                    </div>
+                    <div style="margin:0;" class="contentGrid-right" >
+                        <a-button type="primary" @click="showModalNgaySinh">Sửa đổi</a-button>
+                        <a-modal v-model:open="openngaysinh" title="chỉnh sửa thông tin" @ok="handleOk">
+                            <a-input v-model:value="datetxt" placeholder="Chỉnh sửa ngày sinh" />
+                        </a-modal>
+                    </div>
+                </a-card-grid>
+
+                <!-- giới tính -->
+                <a-card-grid style="width: 100%;" class="content-grid">
+                    <div class="contentGrid-left" style="display:flex; align-items: center;">
+                        <div class="icon"><MehOutlined style="margin-right:10px; font-size:20px;"/></div>
+                        <div>
+                            <p style="margin:0;">Giới tính:</p>
+                            <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ sex ? sex : "--trống--" }}</p>
+                        </div>
+                    </div>
+                    <div style="margin:0;" class="contentGrid-right" >
+                        <a-button type="primary" @click="showModalGioiTinh">Sửa đổi</a-button>
+                        <a-modal v-model:open="opengioitinh" title="chỉnh sửa thông tin" @ok="handleOk">
+                            <a-input v-model:value="sextxt" placeholder="Chỉnh sửa giới tính" />
+                        </a-modal>
+                    </div>
+                </a-card-grid>
+            </a-card>
+        </div>
+    </a-card>
+  </div>
+</template>
+
+<script>
+import { 
+    Card,
+    CardGrid,
+    Button,
+    Modal,
+    Input
+} from 'ant-design-vue/es/components'
+import { 
+    GlobalOutlined,
+    UserOutlined,
+    MailOutlined,
+    HomeOutlined,
+    CalendarOutlined,
+    MehOutlined,
+} from '@ant-design/icons-vue';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import axios from 'axios';
+export default {
+    name:'Information',
+    components:{
+        ACard:Card,
+        ACardGrid:CardGrid,
+        AButton:Button,
+        AModal:Modal,
+        AInput:Input,
+
+        GlobalOutlined,
+        UserOutlined,
+        MailOutlined,
+        HomeOutlined,
+        CalendarOutlined,
+        MehOutlined,
+    },
+    setup() {
+        const store = useStore()
+
+        const role = computed(() => localStorage.getItem("ROLE"));
+        const username = computed(() => localStorage.getItem("USERNAME"));
+        const email = computed(() => localStorage.getItem("EMAIL"));
+        const name =ref('');
+        const phone = ref('');
+        const address = ref('');
+        const date = ref('');
+        const sex = ref('');
+
+        //thông tin người dùng sửa
+        const hotentxt = ref('')
+        const emailtxt = ref('')
+        const address_txt = ref('')
+        const datetxt = ref('')
+        const sextxt = ref('')
+
+        //modal
+        const openten = ref(false);
+        const openemail = ref(false);
+        const opendiachi = ref(false);
+        const openngaysinh = ref(false);
+        const opengioitinh = ref(false);
+        const showModalTen = () => {
+            openten.value = true;
+        };
+        const showModalEmail = () => {
+            openemail.value = true;
+        };
+        const showModalNgaySinh = () => {
+            openngaysinh.value = true;
+        };
+        const showModalDiaChi = () => {
+            opendiachi.value = true;
+        };
+        const showModalGioiTinh = () => {
+            opengioitinh.value = true;
+        };
+
+        //Update
+        const handleOk =() => {
+            if(hotentxt.value !== '' )
+            {
+                console.log('họ tên:' + hotentxt.value);
+                //code
+                hotentxt.value = '';
+            }
+            else if(emailtxt.value !== '' )
+            {
+                console.log('email:',emailtxt.value);
+                //code
+                emailtxt.value = ''
+            }
+            else if(address_txt.value !== '' )
+            {
+                console.log('địa chỉ:',address_txt.value);
+                //code
+                address_txt.value = ''
+            }
+            else if(datetxt.value !== '' )
+            {
+                console.log('ngày sinh:',datetxt.value);
+                //code
+                datetxt.value = ''
+            }
+            else if(sextxt.value !== '' )
+            {
+                console.log('giới tính:',sextxt.value);
+                //code
+                sextxt.value = ''
+            }
+        }
+       
+
+        return{
+            store,
+            username,
+            email,
+            name,
+            phone,
+            address,
+            date,
+            sex,
+            role,
+
+            //modal
+            openten,
+            openemail,
+            opendiachi,
+            openngaysinh,
+            opengioitinh,
+            
+            hotentxt,
+            emailtxt,
+            address_txt,
+            datetxt,
+            sextxt,
+
+            showModalTen,
+            showModalGioiTinh,
+            showModalDiaChi,
+            showModalNgaySinh,
+            handleOk,
+            showModalEmail,
+            
+        }
+    },
+
+    mounted(){
+        const getdataUser = async () =>{
+            if(this.role === '2')
+            {
+                await axios.post('https://localhost:7255/api/HocVien/GetHocVien',{
+                    'username': this.username
+                })
+                .then(res => {
+                    this.name = res.data.tenHV;
+                    this.phone = res.data.sdt;
+                    this.address = res.data.diaChi;
+                    this.date = res.data.ngaySinh;
+                    this.sex = res.data.gioiTinh;
+                })
+                .catch(err => console.log(err))
+            }
+            if(this.role === '3')
+            {
+                await axios.post('https://localhost:7255/api/HocVien/GetGiangVien',{
+                    'username': this.username
+                })
+                .then(res => {
+                    this.name = res.data.tenGV;
+                    this.phone = res.data.sdt;
+                    this.address = res.data.diaChi;
+                    this.date = res.data.ngaySinh;
+                    this.sex = res.data.gioiTinh;
+                })
+                .catch(err => console.log(err))
+            }
+        }
+        getdataUser();
+    }
+}
+</script>
+
+<style scoped>
+
+.cardHeader{
+    width: 100%;
+    padding:10px 0;
+}
+.cardHeader-content{
+    background-color: #5dc2a7;
+    width: 50%;
+    margin-left:25% ;
+}
+.cardLeft{
+    border-right: 1px solid;
+    color: white;
+    
+}
+.cardBody{
+    width: 100%;
+    padding:10px 0;
+}
+.cardBody-content{
+    width: 60%;
+    margin-left:20% ;
+}
+.content-grid{
+    padding: 24px 80px;
+    display:flex;
+    border-bottom: 2px dotted;
+}
+.contentGrid-left{
+    width: 50%;
+}
+.contentGrid-right{
+    width: 50%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+</style>

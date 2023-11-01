@@ -50,7 +50,8 @@ export default createStore({
     logout({commit})
     {
       commit('LOGOUT')
-    }
+    },
+    
   },
   modules: {
   }
