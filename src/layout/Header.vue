@@ -26,23 +26,17 @@
         <li class="nav-item">
           <router-link class="nav-link mx-2" to="/">Trang Chủ</router-link>
         </li>
-        <li class="nav-item">
-          <router-link class="nav-link mx-2" to="/about">Giới Thiệu</router-link>
-        </li>
+        
         <li class="nav-item">
           <router-link class="nav-link mx-2" to="/recourses">Khóa Học</router-link>
         </li>
-        <li class="nav-item ms-3" v-if="logined === false ">
-          <router-link class="btn btn-black btn-primary" to="/login" style="margin-right:5px;">Đăng nhập</router-link>
-          <router-link class="btn btn-black btn-primary" to="/register">Đăng ký</router-link>
-        </li>
-        <li class="nav-item ms-3" v-else>
+        <li class="nav-item ms-3" v-if=" loginData? loginData : logined === 'true' ">
           <a-dropdown-button>
-            {{ username }}
+            {{ usernameData ? usernameData : username }}
             <template #overlay>
               <a-menu @click="handleMenuClick">
-                <a-menu-item key="1">
-                  Thông tin cá nhân
+                <a-menu-item key="1" v-if="Role !== '1'">
+                  <router-link to="/information">Thông tin cá nhân</router-link>
                 </a-menu-item>
                 <a-menu-item key="2" @click="LogOut">
                   Đăng xuất
@@ -52,6 +46,10 @@
             <template #icon><UserOutlined /></template>
           </a-dropdown-button>
         </li>
+        <li class="nav-item ms-3" v-else>
+          <router-link class="btn btn-black btn-primary" to="/login" style="margin-right:5px;">Đăng nhập</router-link>
+          <router-link class="btn btn-black btn-primary" to="/register">Đăng ký</router-link>
+        </li>
       </ul>
     </div>
   </div>
@@ -60,7 +58,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { Menu, MenuItem, DropdownButton }  from 'ant-design-vue/es/components'
 import { UserOutlined } from '@ant-design/icons-vue';
@@ -72,21 +70,41 @@ export default {
     ADropdownButton:DropdownButton,
     UserOutlined
   },
-  
   setup() { 
-    const logined = computed(() => store.state.logined || localStorage.getItem('logined') === 'true')
-    const username = computed(() => store.state.username || localStorage.getItem('username'))
-    const Role = ref('')
     const store = useStore()
 
+    // localStorage.getItem("LOGINED")
+    const logined = ref(localStorage.getItem("LOGINED"));
+    const loginData = computed(() => store.state.logined);
+    const username = ref(localStorage.getItem("USERNAME"));
+    const usernameData = computed(() => store.state.username);
+    const Role = ref(localStorage.getItem("ROLE"));
+    const RoleData = computed(() => store.state.Role);
+
+    watch([logined, usernameData, Role], ([newLogined, newUsername, newRole]) => {
+      // Cập nhật các biến khi có sự thay đổi
+      logined.value = newLogined;
+      usernameData.value = newUsername;
+      Role.value = newRole;
+
+      
+    });
+    
     const LogOut = () => {
        store.dispatch('logout')
+       console.log(logined.value);
+       console.log(usernameData.value);
+       console.log(Role.value);
     }
+
     return{
-      logined,
-      Role,
       store,
+      logined,
       username,
+      usernameData,
+      Role,
+      loginData,
+      RoleData,
 
       LogOut,
     }

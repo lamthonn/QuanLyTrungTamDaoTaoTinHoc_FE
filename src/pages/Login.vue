@@ -18,25 +18,24 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
+
 export default {
   name: "LoginPage",
+ 
   setup() {
     const store = useStore();
     const router = useRouter()
 
     const username = ref('');
     const password = ref('');
-    const login = ref(false)
 
     const submitLogin = async () => {
-        // await store.dispatch('login', {
-        // account: username.value,
-        // password: password.value,
-        // })
+        
         await axios.post("https://localhost:7255/api/TaiKhoan/login",{
           account: username.value,
           password: password.value,
@@ -46,10 +45,11 @@ export default {
             alert("Đăng nhập thất bại!");
           }
           else{
-            login.value = true,
+            const decoded = jwtDecode(`${res.data.token }`);
+            store.dispatch('login',decoded)
             alert("đăng nhập thành công!"),
             router.push('/')
-            store.dispatch('login',res.data)
+            console.log(computed(() => store.state.logined));
           }
         })
       }
@@ -59,7 +59,6 @@ export default {
       password,
       store,
       router,
-      login,
 
       submitLogin
     }
