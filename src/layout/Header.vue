@@ -30,7 +30,10 @@
         <li class="nav-item">
           <router-link class="nav-link mx-2" to="/recourses">Khóa Học</router-link>
         </li>
-        <li class="nav-item ms-3" v-if=" loginData? loginData : logined === 'true' ">
+        <li class="nav-item">
+          <router-link class="nav-link mx-2" to="/notification" v-if="RoleData !== '' || Role !== null">Thông Báo</router-link>
+        </li>
+        <li class="nav-item ms-3" v-if="loginData === true || logined === 'true' ">
           <a-dropdown-button>
             {{ usernameData ? usernameData : username }}
             <template #overlay>
@@ -62,6 +65,7 @@ import { computed, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { Menu, MenuItem, DropdownButton }  from 'ant-design-vue/es/components'
 import { UserOutlined } from '@ant-design/icons-vue';
+import { useRouter } from 'vue-router';
 export default {
   name: "Header-",
   components: {
@@ -72,6 +76,7 @@ export default {
   },
   setup() { 
     const store = useStore()
+    const router = useRouter();
 
     // localStorage.getItem("LOGINED")
     const logined = ref(localStorage.getItem("LOGINED"));
@@ -80,25 +85,17 @@ export default {
     const usernameData = computed(() => store.state.username);
     const Role = ref(localStorage.getItem("ROLE"));
     const RoleData = computed(() => store.state.Role);
-
-    watch([logined, usernameData, Role], ([newLogined, newUsername, newRole]) => {
-      // Cập nhật các biến khi có sự thay đổi
-      logined.value = newLogined;
-      usernameData.value = newUsername;
-      Role.value = newRole;
-
-      
-    });
     
     const LogOut = () => {
        store.dispatch('logout')
-       console.log(logined.value);
-       console.log(usernameData.value);
-       console.log(Role.value);
+       logined.value = localStorage.getItem("LOGINED")
+       Role.value = localStorage.getItem("ROLE")
+       router.push("/");
     }
 
     return{
       store,
+      router,
       logined,
       username,
       usernameData,
