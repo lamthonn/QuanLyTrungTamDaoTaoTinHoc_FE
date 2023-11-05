@@ -142,6 +142,7 @@ ul{
   padding: 35px 30px 39px 35px;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 
   #footer .f-col-1 {
