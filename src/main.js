@@ -5,7 +5,6 @@ import store from './store'
 
 import 'bootstrap/dist/css/bootstrap-grid.min.css'
 import 'bootstrap/dist/css/bootstrap-utilities.min.css'
-
 import { Carousel } from 'ant-design-vue'
 import 'ant-design-vue/dist/reset.css';
 
