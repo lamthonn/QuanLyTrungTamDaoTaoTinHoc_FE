@@ -17,19 +17,12 @@ const routes = [
     path: "/recourses",
     name: "recourses",
     component:() =>
-<<<<<<< HEAD
     import("../pages/Courses.vue"),
-=======
-      import("../pages/Courses.vue"),
->>>>>>> 44b8555e482e3e3c340a8dc1cecca748c8a0408a
   },
   {
     path: "/register",
     name: "register",
     component:() =>
-<<<<<<< HEAD
-        import("../pages/Register.vue"),
-=======
       import("../pages/Register.vue"),
   },
   {
@@ -37,7 +30,6 @@ const routes = [
     name: "information",
     component:() =>
       import("../pages/Information.vue"),
->>>>>>> 44b8555e482e3e3c340a8dc1cecca748c8a0408a
   },
 ];
 
