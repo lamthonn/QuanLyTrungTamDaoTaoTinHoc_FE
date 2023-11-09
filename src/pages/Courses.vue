@@ -99,20 +99,20 @@
                 <div class="head-page">
                     <h2 class="page-title"><span class="text-green">#</span>3D Art &amp; Multimedia</h2>
                     <div class="head-views">
-                        <p class="result-search" id="result-search-2" style=" scroll-margin-top: 150px;">Có tổng cộng <u class="font-weight-bold">4 Khóa học</u> được tìm thấy</p>
+                        <p class="result-search" id="result-search-2" style=" scroll-margin-top: 150px;">Có tổng cộng <u class="font-weight-bold">{{ Courses3DArt.length }} Khóa học</u> được tìm thấy</p>
                     </div>
                 </div>
                 <ul class="course-list" id="course-list-2">
-                    <li>
+                    <li v-for="course in Courses3DArt" :key="course.maKH">
                         <div class="course-thumb">
-                            <a href=""><img src="../assets/Courses/3D_ART/_DSC5403.jpeg"></a>
+                            <a href=""><img :src="require(`../assets/Courses/3D_ART/${course.pathImage}`)" /></a>
                         </div>
                         <div class="course-info">
-                            <h3 class="course-name"><a href="">Digi Girl: STEAM Art</a></h3>
+                            <h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3>
                             <div class="course-row">
                                 <div class="course-price">
                                     <label class="price-label">Chỉ còn</label>
-                                    <div class="price"><strong>200</strong>.000</div>
+                                    <div class="price"><strong>{{ course.price }}</strong>.000</div>
                                     <div class="unit"><sup class="unit-label">đ</sup>/giờ</div>
                                 </div>     
                             <div class="course-prize">
@@ -126,55 +126,20 @@
                                 </div>
                                 <span class="prize-total">(2543)</span>
                             </div>
-                            <span class="course-ctg">7-11 tuổi</span>
+                            <span class="course-ctg">{{ course.luaTuoi }} tuổi</span>
                             </div>
-                            <p class="course-text">Xây dựng đam mê, tạo nền tảng kiến thức Công nghệ; Giáo trình đặc biệt dành cho Học sinh nữ trong thời đại số</p>
+                            <p class="course-text">{{ course.description }}</p>
                             <div class="course-tools">
-                                <span><img src="projects/tools/2022/03/01/CoSpaces_Logo.svg.png" alt=""></span>
+                                <!-- <span><img src="projects/tools/2022/03/01/CoSpaces_Logo.svg.png" alt=""></span>
                                 <span><img src="projects/tools/2022/04/29/Robot_Thumbnail_Resized-e1574666381369.png" alt=""></span>
-                                <span><img src="projects/tools/2022/03/01/xyz-print.png" alt=""></span>
+                                <span><img src="projects/tools/2022/03/01/xyz-print.png" alt=""></span> -->
                             </div>
                         </div>
                         <div class="control">
                             <div class="frame">
-                                <i class="custom-btn btn-10 fa-solid fa-plus iconadd">Thêm mới</i>
-                                <i class="custom-btn btn-10 fa-solid fa-pen iconedit ">Sửa</i>
-                                <i class="custom-btn btn-10 fa-regular fa-trash-can icondelete">Xóa</i>                   
-                            </div>                         
-                        </div>
-                    </li>
-                    <li>
-                        <div class="course-thumb">
-                            <a href=""><img src="../assets/Courses/3D_ART/DigiSTyle.png"></a>
-                        </div>
-                        <div class="course-info">
-                            <h3 class="course-name"><a href="">Digi Style: MultiMedia</a></h3>
-                            <div class="course-row">
-                                <div class="course-price">
-                                    <label class="price-label">Chỉ còn</label>
-                                    <div class="price"><strong>200</strong>.000</div>
-                                    <div class="unit"><sup class="unit-label">đ</sup>/giờ</div>
-                                </div>     
-                            <div class="course-prize">
-                                <span class="prize-poin">4.8</span>
-                                <div class="prize-star">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-half-icon.svg">
-                                </div>
-                                <span class="prize-total">(2731)</span>
-                            </div>
-                            <span class="course-ctg">11-18 tuổi</span>
-                            </div>
-                            <p class="course-text">Phát triển tư duy ứng dụng công nghệ vào thực tiễn và sáng tạo cá tính - Dẫn đầu công nghệ, bùng nổ cơ hội tương lai!</p>
-                        </div>
-                        <div class="control">
-                            <div class="frame">
-                                <i class="custom-btn btn-10 fa-solid fa-plus iconadd">Thêm mới</i>
-                                <i class="custom-btn btn-10 fa-solid fa-pen iconedit ">Sửa</i>
-                                <i class="custom-btn btn-10 fa-regular fa-trash-can icondelete">Xóa</i>                   
+                                <i class="custom-btn btn-10 iconadd">Thêm mới</i>
+                                <i class="custom-btn btn-10 iconedit ">Sửa</i>
+                                <i class="custom-btn btn-10 icondelete">Xóa</i>                   
                             </div>                         
                         </div>
                     </li>
@@ -183,24 +148,24 @@
                 <div class="head-page">
                     <h2 class="page-title"><span class="text-green">#</span>Programming &amp; Application</h2>
                     <div class="head-views">
-                        <p class="result-search" id="result-search-2" style=" scroll-margin-top: 150px;">Có tổng cộng <u class="font-weight-bold">4 Khóa học</u> được tìm thấy</p>
+                        <p class="result-search" id="result-search-2" style=" scroll-margin-top: 150px;">Có tổng cộng <u class="font-weight-bold">{{ CoursesApp.length }} Khóa học</u> được tìm thấy</p>
                     </div>
                 </div>
                 <ul class="course-list" id="course-list-2">
-                    <li>
+                    <li v-for="course in CoursesApp" :key="course.maKH">
                         <div class="course-thumb">
-                            <a href=""><img src="../assets/Courses/3D_ART/_DSC6701.jpeg"></a>
+                            <img :src="require(`../assets/Courses/3D_ART/${course.pathImage}`)" />
                         </div>
                         <div class="course-info">
-                            <h3 class="course-name"><a href="">Siêu nhân Lập trình Web</a></h3>
+                            <h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3>
                             <div class="course-row">
                                 <div class="course-price">
                                     <label class="price-label">Chỉ còn</label>
-                                    <div class="price"><strong>200</strong>.000</div>
+                                    <div class="price"><strong>{{ course.price }}</strong>.000</div>
                                     <div class="unit"><sup class="unit-label">đ</sup>/giờ</div>
                                 </div>     
                             <div class="course-prize">
-                                <span class="prize-poin">4.6</span>
+                                <span class="prize-poin">{{ course.rate }}</span>
                                 <div class="prize-star">
                                     <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
                                     <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
@@ -210,55 +175,20 @@
                                 </div>
                                 <span class="prize-total">(2543)</span>
                             </div>
-                            <span class="course-ctg">7-11 tuổi</span>
+                            <span class="course-ctg">{{ course.luaTuoi }} tuổi</span>
                             </div>
-                            <p class="course-text">Phát triển tư duy ứng dụng, sáng tạo cá tính và nuôi dưỡng tinh thần doanh nhân công nghệ trong thời đại 4.0; Theo chuẩn Kiến thức Khoa học máy tính CSTA cho K12 của Mỹ</p>
+                            <p class="course-text">{{ course.description }}</p>
                             <div class="course-tools">
-                                <span><img src="projects/tools/2022/03/01/CoSpaces_Logo.svg.png" alt=""></span>
+                                <!-- <span><img src="projects/tools/2022/03/01/CoSpaces_Logo.svg.png" alt=""></span>
                                 <span><img src="projects/tools/2022/04/29/Robot_Thumbnail_Resized-e1574666381369.png" alt=""></span>
-                                <span><img src="projects/tools/2022/03/01/xyz-print.png" alt=""></span>
+                                <span><img src="projects/tools/2022/03/01/xyz-print.png" alt=""></span> -->
                             </div>
                         </div>
-                        <div class="control">
+                        <div class="control" v-if="role === '1' || roleData === '1'">
                             <div class="frame">
-                                <i class="custom-btn btn-10 fa-solid fa-plus iconadd">Thêm mới</i>
-                                <i class="custom-btn btn-10 fa-solid fa-pen iconedit ">Sửa</i>
-                                <i class="custom-btn btn-10 fa-regular fa-trash-can icondelete">Xóa</i>                   
-                            </div>                         
-                        </div>
-                    </li>
-                    <li>
-                        <div class="course-thumb">
-                            <a href=""><img src="../assets/Courses/3D_ART/SNLT-App.png"></a>
-                        </div>
-                        <div class="course-info">
-                            <h3 class="course-name"><a href="">Siêu nhân Lập trình APP</a></h3>
-                            <div class="course-row">
-                                <div class="course-price">
-                                    <label class="price-label">Chỉ còn</label>
-                                    <div class="price"><strong>200</strong>.000</div>
-                                    <div class="unit"><sup class="unit-label">đ</sup>/giờ</div>
-                                </div>     
-                            <div class="course-prize">
-                                <span class="prize-poin">4.8</span>
-                                <div class="prize-star">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-half-icon.svg">
-                                </div>
-                                <span class="prize-total">(2731)</span>
-                            </div>
-                            <span class="course-ctg">11-18 tuổi</span>
-                            </div>
-                            <p class="course-text">Phát triển tư duy ứng dụng, sáng tạo cá tính và nuôi dưỡng tinh thần doanh nhân công nghệ trong thời đại 4.0; Theo chuẩn Kiến thức Khoa học máy tính CSTA cho K12 của Mỹ</p>
-                        </div>
-                        <div class="control">
-                            <div class="frame">
-                                <i class="custom-btn btn-10 fa-solid fa-plus iconadd">Thêm mới</i>
-                                <i class="custom-btn btn-10 fa-solid fa-pen iconedit ">Sửa</i>
-                                <i class="custom-btn btn-10 fa-regular fa-trash-can icondelete">Xóa</i>                   
+                                <i class="custom-btn btn-10 iconadd">Thêm mới</i>
+                                <i class="custom-btn btn-10 iconedit ">Sửa</i>
+                                <i class="custom-btn btn-10 icondelete">Xóa</i>                   
                             </div>                         
                         </div>
                     </li>
@@ -276,45 +206,77 @@
     </div>
 </template>
 <script>
-    import { Carousel } from 'ant-design-vue/es/components';
+import { Carousel } from 'ant-design-vue/es/components';
+import { computed, ref } from 'vue';
+import axios from 'axios';
+import { useStore } from 'vuex';
 
     export default {
     name: "Courses-",
     components: {
         ACarousel: Carousel,
     },
-    setup() {},
+    setup() {
+        const store = useStore()
+        //data người dùng
+        const role = ref(localStorage.getItem("ROLE"))
+        const roleData = computed(() => store.state.Role);
+
+        //data các khóa học
+        const CoursesApp = ref([]);
+        const Courses3DArt = ref([]);
+
+        const getData = async (tenLoai) => {
+            const respone = await axios.post('https://localhost:7255/api/KhoaHoc/getAllCourses',{
+                'loai': tenLoai
+            })
+            return respone.data;
+        }
+        //get data khóa học Programming & Application
+        const getCoursesApp = async () => {
+            CoursesApp.value = await getData('Programming & Application');
+        }
+        getCoursesApp();
+
+        //get data khóa học 3D Art & Multimedia
+        const getCourses3DArt = async () => {
+            Courses3DArt.value = await getData('3D Art & Multimedia');
+            console.log(Courses3DArt.value);
+        }
+        getCourses3DArt();
+
+        return {
+            store,
+            CoursesApp,
+            Courses3DArt,
+            role,
+            roleData,
+
+            getCoursesApp,
+            getCourses3DArt,
+        }
+    },
+    mounted(){
+        
+    }
     };
 
-        const buyBtns = document.querySelectorAll('.custom-btn')
-        const modal = document.querySelector('.js-modal')
-        const modalContainer = document.querySelector('.js-modal-container')
-        const modalClose= document.querySelector('.js-modal-close')
+        // const buyBtns = document.querySelectorAll('.custom-btn')
+        // const modal = document.querySelector('.js-modal')
+        // const modalContainer = document.querySelector('.js-modal-container')
+        // const modalClose= document.querySelector('.js-modal-close')
         
-        // hàm hiển thị form modal mua vé(thêm class open vào modal)
-        function showBuyTickets(){
-            modal.classList.add('open')
-        }
-
-        // hàm ẩn form modal mua vé(gỡ bỏ class open vào modal)
-        function hideBuyTickets(){
-            modal.classList.remove('open')
-        }
-
-        // lặp qua từng thẻ buron và nghe hành vi click
-        // for(const buyBtn of buyBtns){
-        //     buyBtn.addEventListener('click',showBuyTickets)
+        // // hàm hiển thị form modal mua vé(thêm class open vào modal)
+        // function showBuyTickets(){
+        //     modal.classList.add('open')
         // }
 
-        // nghe hành vi click button close
-        //modalClose.addEventListener('click',hideBuyTickets)
-        
-        //modal.addEventListener('click',hideBuyTickets)
+        // // hàm ẩn form modal mua vé(gỡ bỏ class open vào modal)
+        // function hideBuyTickets(){
+        //     modal.classList.remove('open')
+        // }
 
-        // modalContainer.addEventListener('click',function(event){
-        //     // ngừng việc nổi bọt
-        //     event.stopPropagation();
-        // })
+        
 </script>
 <style scoped>
 *{
