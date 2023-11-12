@@ -116,7 +116,7 @@
                                     <div class="unit"><sup class="unit-label">đ</sup>/giờ</div>
                                 </div>     
                             <div class="course-prize">
-                                <span class="prize-poin">4.6</span>
+                                <span class="prize-poin">{{ course.rate }}</span>
                                 <div class="prize-star">
                                     <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
                                     <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
@@ -135,7 +135,7 @@
                                 <span><img src="projects/tools/2022/03/01/xyz-print.png" alt=""></span> -->
                             </div>
                         </div>
-                        <div class="control">
+                        <div class="control" v-if="role === '1' || roleData === '1'">
                             <div class="frame">
                                 <i class="custom-btn btn-10 iconadd">Thêm mới</i>
                                 <i class="custom-btn btn-10 iconedit ">Sửa</i>

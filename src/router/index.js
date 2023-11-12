@@ -31,11 +31,24 @@ const routes = [
     component:() =>
       import("../pages/Information.vue"),
   },
+  //SocialMedia
   {
     path: "/notification",
     name: "notification",
     component:() =>
       import("../pages/Notification.vue"),
+  },
+  {
+    path: "/socialMedia",
+    name: "socialMedia",
+    component:() =>
+      import("../pages/SocialMedia.vue"),
+  },
+  {
+    path: "/addNews",
+    name: "addNews",
+    component:() =>
+      import("../components/socialMedia/addNews.vue"),
   },
 ];
 
