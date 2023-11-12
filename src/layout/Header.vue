@@ -28,10 +28,10 @@
         </li>
         
         <li class="nav-item">
-          <router-link class="nav-link mx-2" to="/recourses">Khóa Học</router-link>
+          <router-link class="nav-link mx-2" to="/recourses" v-if="RoleData !== '' || Role !== null">Khóa Học</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link mx-2" to="/notification" v-if="RoleData !== '' || Role !== null">Thông Báo</router-link>
+          <router-link class="nav-link mx-2" to="/socialMedia">Xã Hội</router-link>
         </li>
         <li class="nav-item ms-3" v-if="loginData === true || logined === 'true' ">
           <a-dropdown-button>
