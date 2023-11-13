@@ -110,7 +110,11 @@
                             <router-link to="/detailCourse"><img :src="require(`../assets/Courses/3D_ART/${course.pathImage}`)" /></router-link>
                         </div>
                         <div class="course-info">
+<<<<<<< HEAD
                             <router-link to="/detailCourse"><h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3></router-link>
+=======
+                            <h3 class="course-name"><router-link to="/login">{{ course.tenKH }}</router-link></h3>
+>>>>>>> 12de0d4e601d53790e310b8388c49c5b05cbd3ac
                             <div class="course-row">
                                 <div class="course-price">
                                     <label class="price-label">Chỉ còn</label>
@@ -126,7 +130,7 @@
                                     <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
                                     <img class="svg" src="../assets/Courses/3D_ART/start-half-icon.svg">
                                 </div>
-                                <span class="prize-total">(2543)</span>
+                                <span class="prize-total" >(2543)</span>
                             </div>
                             <span class="course-ctg">{{ course.luaTuoi }} tuổi</span>
                             </div>

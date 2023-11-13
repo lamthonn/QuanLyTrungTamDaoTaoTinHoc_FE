@@ -69,6 +69,7 @@
             </div>
         </div>
     </div>
+    <addNews ref="xemRef" />
 </template>
 
 <script>
@@ -80,8 +81,9 @@ import {
     MailOutlined,
     PlusCircleOutlined
 } from '@ant-design/icons-vue';
-import { h, reactive } from 'vue';
+import { h, reactive, ref } from 'vue';
 import router from '@/router';
+import addNews from '@/components/socialMedia/addNews.vue';
 export default {
     name: 'socialMedia',
     components: {
@@ -92,9 +94,11 @@ export default {
         MenuFoldOutlined,
         MenuUnfoldOutlined,
         TeamOutlined,
-        PlusCircleOutlined
+        PlusCircleOutlined,
+        addNews,
     },
     setup() {
+        const xemRef = ref();
         const state = reactive({
             collapsed: true,
             selectedKeys: ['2'],
@@ -136,7 +140,11 @@ export default {
             // state.openKeys = state.collapsed ? [] : state.preOpenKeys;
         };
         const hanldeClick = (key) => {
-            if(key.key === '2')
+            if(key.key === '1')
+            {
+                addBaiViet();
+            }
+            else if(key.key === '2')
             {
                 router.push("/socialMedia");
             }
@@ -145,13 +153,19 @@ export default {
                 router.push("/notification");
             }
         }
+        const addBaiViet =() => {
+            xemRef.value.visible = true
+            console.log("running");
+        }
 
         return{
+            xemRef,
             state,
             items,
 
             toggleCollapsed,
-            hanldeClick
+            hanldeClick,
+            addBaiViet,
         }
     },
 }
