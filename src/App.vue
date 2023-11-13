@@ -16,6 +16,8 @@
     },
   };
 </script>
-<style scoped>
-  
+<style>
+  *{
+    font-family: 'Quicksand', sans-serif;
+  }
 </style>
