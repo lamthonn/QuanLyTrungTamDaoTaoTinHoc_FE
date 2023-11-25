@@ -49,7 +49,10 @@ export default{
        AFormItem:FormItem,
        AInput:Input,
        AUpload:Upload,
+<<<<<<< HEAD
        quillEditor,
+=======
+>>>>>>> 1002e0899e3b50a1f28173ef8ca359a29d09264b
        PlusOutlined,
    },
    setup(){
@@ -72,8 +75,12 @@ export default{
            const luaTuoi = ref('');
            const loai = ref('');
            const pathImage = ref('');
+<<<<<<< HEAD
            const maGV = ref('');
        }
+=======
+           const maGV = ref('');}
+>>>>>>> 1002e0899e3b50a1f28173ef8ca359a29d09264b
        const handleOk= () => {
            if(maKH.value === ''){
                alert("Chưa nhập Mã khóa học!")
