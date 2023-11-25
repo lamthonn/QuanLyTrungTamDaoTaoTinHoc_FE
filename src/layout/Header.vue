@@ -30,9 +30,12 @@
         <li class="nav-item">
           <router-link class="nav-link mx-2" to="/recourses" v-if="RoleData !== '' || Role !== null">Khóa Học</router-link>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link class="nav-link mx-2" to="/socialMedia">Xã Hội</router-link>
-        </li>
+        </li> -->
+         <li class="nav-item">
+          <router-link class="nav-link mx-2" to="/notification">thông báo</router-link>
+        </li> 
         <li class="nav-item ms-3" v-if="loginData === true || logined === 'true' ">
           <a-dropdown-button>
             {{ usernameData ? usernameData : username }}

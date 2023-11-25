@@ -1,14 +1,14 @@
 <template>
-  <div style="display:flex;">
-    <div style="width: 15%">
+  <!-- <div style="display:flex;"> -->
+    <!-- <div style="width: 15%">
       <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
         <MenuUnfoldOutlined v-if="state.collapsed" />
         <MenuFoldOutlined v-else />
       </a-button>
       <a-menu v-model:openKeys="state.openKeys" v-model:selectedKeys="state.selectedKeys" mode="inline" theme="light"
         :inline-collapsed="state.collapsed" :items="items" @click="hanldeClick"></a-menu>
-    </div>
-    <div style="width: 75%">
+    </div> -->
+    <div style="width: 76%; margin-left:12%;">
       <a-tabs>
         <a-tab-pane key="1" tab="Học Viên">
           <a-collapse v-model:activeKey="activeKey1">
@@ -38,7 +38,7 @@
         </a-tab-pane>
       </a-tabs>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -106,7 +106,7 @@ export default {
 
     //menu
     const state = reactive({
-      collapsed: true,
+      collapsed: false,
       selectedKeys: ['3'],
       // openKeys: ['sub1'],
       // preOpenKeys: ['sub1'],

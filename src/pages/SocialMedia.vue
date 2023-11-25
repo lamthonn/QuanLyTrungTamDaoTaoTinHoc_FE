@@ -12,60 +12,47 @@
                     :inline-collapsed="state.collapsed" 
                     :items="items"
                     @click="hanldeClick"
-                    ></a-menu>
+            ></a-menu>
         </div>
 
         <div class="contentPost">
             <div>
-                <a-card class="CardPost" :bordered="false" style="width: 600px; box-shadow:2px 2px 2px 2px;display:grid;">
+                <a-card class="CardPost" 
+                        :bordered="false" 
+                        style="width: 600px; box-shadow:2px 2px 2px 2px;display:grid;"
+                        v-for="post in posts"
+                        :key="post.postId"
+                        >
                     <div class="headerCard">
                         <div class="headerLeft">
-                            <h5>Tên_Tài_Khoan</h5>
-                            <p>đây là title</p>
+                            <h5>Học Viên: {{ post.maHV }}</h5>
+                            <p>{{ post.title }}</p>
                         </div>
                         <div class="headerRight">
-                            <i class="fa-solid fa-ellipsis" style="font-size:30px;"></i>
+                                <a-popover>
+                                    <template #content>
+                                    <p>Sửa bài viết</p>
+                                    <p>Xóa bài viết</p>
+                                    </template>
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </a-popover>
                         </div>
                     </div>
                     <div class="bodyCard">
                         <div class="bodyleft">
                             <a-image
                                 width="95%"
-                                :src="require(`../assets/media/test.jpg`)"
+                                :src="require(`../assets/media/${post.pathImage}`)"
                                 style="border-radius:15px;"
                             />
                         </div>
                         <div class="bodyright">
-                            <i class="fa-solid fa-heart" style="font-size:40px;"></i>
-                            <i class="fa-regular fa-comment-dots" style="font-size:40px;"></i>
+                            <i class="fa-solid fa-heart" style="font-size:40px;cursor: pointer;"></i>
+                            <i class="fa-regular fa-comment-dots" style="font-size:40px;cursor: pointer;"></i>
                         </div>
                     </div>
                 </a-card>
 
-                <a-card class="CardPost" :bordered="false" style="width: 600px; box-shadow:2px 2px 2px 2px;display:grid;">
-                    <div class="headerCard">
-                        <div class="headerLeft">
-                            <h5>Tên_Tài_Khoan</h5>
-                            <p>đây là title</p>
-                        </div>
-                        <div class="headerRight">
-                            <i class="fa-solid fa-ellipsis" style="font-size:30px;"></i>
-                        </div>
-                    </div>
-                    <div class="bodyCard">
-                        <div class="bodyleft">
-                            <a-image
-                                width="95%"
-                                :src="require(`../assets/media/test.jpg`)"
-                                style="border-radius:15px;"
-                            />
-                        </div>
-                        <div class="bodyright">
-                            <i class="fa-solid fa-heart" style="font-size:40px;"></i>
-                            <i class="fa-regular fa-comment-dots" style="font-size:40px;"></i>
-                        </div>
-                    </div>
-                </a-card>
             </div>
         </div>
     </div>
@@ -73,7 +60,7 @@
 </template>
 
 <script>
-import { Menu, Button, Card, Image } from 'ant-design-vue';
+import { Menu, Button, Card, Image, Popover, notification  } from 'ant-design-vue';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -81,9 +68,11 @@ import {
     MailOutlined,
     PlusCircleOutlined
 } from '@ant-design/icons-vue';
-import { h, reactive, ref } from 'vue';
+import { computed, h, reactive, ref } from 'vue';
 import router from '@/router';
 import addNews from '@/components/socialMedia/addNews.vue';
+import axios from 'axios';
+import { useStore } from 'vuex';
 export default {
     name: 'socialMedia',
     components: {
@@ -91,27 +80,35 @@ export default {
         AButton: Button,
         ACard:Card,
         AImage:Image,
+        APopover:Popover,
+        addNews,
         MenuFoldOutlined,
         MenuUnfoldOutlined,
         TeamOutlined,
         PlusCircleOutlined,
-        addNews,
     },
     setup() {
+        const store = useStore();
+        const posts = ref([])
         const xemRef = ref();
         const state = reactive({
-            collapsed: true,
+            collapsed: false,
             selectedKeys: ['2'],
             // openKeys: ['sub1'],
             // preOpenKeys: ['sub1'],
         });
+        const visible = ref(false);
+        const Role = ref(localStorage.getItem("ROLE"));
+        const RoleData = computed(() => store.state.Role);
+        const hide = () => {
+        visible.value = false;
+        };
         const items = reactive([
             {
                 key: '1',
                 icon: () => h(PlusCircleOutlined),
                 label: 'Bài viết mới',
                 title: 'Bài viết mới',
-                
             },
             {
                 key: '2',
@@ -129,12 +126,13 @@ export default {
             },
            
         ]);
-        // watch(
-        //     () => state.openKeys,
-        //     (_val, oldVal) => {
-        //         state.preOpenKeys = oldVal;
-        //     },
-        // );
+        const openNotificationWithIcon = (type) => {
+            notification[type]({
+                message: 'Cảnh Báo',
+                description:
+                'Chỉ học viên mới có quyền đăng bài',
+            });
+        };
         const toggleCollapsed = () => {
             state.collapsed = !state.collapsed;
             // state.openKeys = state.collapsed ? [] : state.preOpenKeys;
@@ -142,7 +140,13 @@ export default {
         const hanldeClick = (key) => {
             if(key.key === '1')
             {
-                addBaiViet();
+                if(Role.value === '2' || RoleData.value === '2' )
+                {
+                    addBaiViet();
+                }
+                else{
+                    openNotificationWithIcon('warning')
+                }
             }
             else if(key.key === '2')
             {
@@ -155,19 +159,33 @@ export default {
         }
         const addBaiViet =() => {
             xemRef.value.visible = true
-            console.log("running");
         }
 
+        const getdataPost = async () => {
+            const respone = await axios.get("https://localhost:7255/api/SocialMedia")
+            posts.value = respone.data
+        }
+        
         return{
             xemRef,
             state,
             items,
+            posts,
+            visible,
+            Role,
+            RoleData,
 
             toggleCollapsed,
             hanldeClick,
             addBaiViet,
+            getdataPost,
+            hide,
+            openNotificationWithIcon,
         }
     },
+    mounted(){
+        this.getdataPost();
+    }
 }
 </script>
 
@@ -198,6 +216,15 @@ export default {
     align-content: space-evenly;
 }
 .CardPost{
-    margin-top:15px ;
+    margin-top:25px ;
+}
+.fa-ellipsis{
+    font-size:30px;
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: 19px;
+}
+.fa-ellipsis:hover{
+    background-color: rgb(225, 225, 225);
 }
 </style>
