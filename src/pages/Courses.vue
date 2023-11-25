@@ -17,9 +17,6 @@
                             <span class="icon"><img src="../assets/Courses/community-icon-2.svg" alt=""></span>
                             <div class="text">
                                 <a id="subject-2">3D Art &amp; Multimedia</a>
-                                <ul class="subject-sub" id="subject-sub-2">  
-                                    <li value="3"><a>3D Art &amp; Multimedia</a></li>
-                                </ul>
                             </div>
                         </li>
                     
@@ -111,7 +108,6 @@
                         </div>
                         <div class="course-info">
                             <router-link to="/detailCourse"><h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3></router-link>
-=======
                             <h3 class="course-name"><router-link to="/login">{{ course.tenKH }}</router-link></h3>
                             <div class="course-row">
                                 <div class="course-price">
@@ -190,7 +186,6 @@
                         </div>
                         <div class="control" v-if="role === '1' || roleData === '1'">
                             <div class="frame">
-                                <i class="custom-btn btn-10 iconadd">Thêm mới</i>
                                 <i class="custom-btn btn-10 iconedit ">Sửa</i>
                                 <i class="custom-btn btn-10 icondelete">Xóa</i>                   
                             </div>                         
