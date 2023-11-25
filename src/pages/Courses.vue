@@ -99,7 +99,7 @@
                 <div class="head-page">
                     <h2 class="page-title"><span class="text-green" v-if="Courses3DArt.length > 0">#</span>3D Art &amp; Multimedia</h2> 
                     <router-link to="/detailCourse"></router-link>      
-                    <router-link to="/AddNewCourse"><i class="custom-btn btn-10 iconadd">Thêm mới</i></router-link>
+                    <div to="/AddNewCourse" v-if="role === '1' || roleData === '1'" @click="showModal"><i class="custom-btn btn-10 iconadd">Thêm mới</i></div>
                     <div class="head-views">
                         <p class="result-search" id="result-search-2" style=" scroll-margin-top: 150px;">Có tổng cộng <u class="font-weight-bold">{{ Courses3DArt.length }} Khóa học</u> được tìm thấy</p>
                     </div>
@@ -111,7 +111,6 @@
                         </div>
                         <div class="course-info">
                             <router-link to="/detailCourse"><h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3></router-link>
-=======
                             <h3 class="course-name"><router-link to="/login">{{ course.tenKH }}</router-link></h3>
                             <div class="course-row">
                                 <div class="course-price">
@@ -208,17 +207,19 @@
             </div>
         </div>
     </div>
+    <AddNewCourseVue ref="xemRef"/>
 </template>
 <script>
 import { Carousel } from 'ant-design-vue/es/components';
 import { computed, ref } from 'vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
-
+import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
     export default {
     name: "Courses-",
     components: {
         ACarousel: Carousel,
+        AddNewCourseVue
     },
     setup() {
         const store = useStore()
@@ -229,6 +230,8 @@ import { useStore } from 'vuex';
         //data các khóa học
         const CoursesApp = ref([]);
         const Courses3DArt = ref([]);
+
+        const xemRef = ref();
 
         const getData = async (tenLoai) => {
             const respone = await axios.post('https://localhost:7255/api/KhoaHoc/getAllCourses',{
@@ -249,15 +252,20 @@ import { useStore } from 'vuex';
         }
         getCourses3DArt();
 
+        const showModal =() => {
+            xemRef.value.visible = true
+        }
         return {
             store,
             CoursesApp,
             Courses3DArt,
             role,
             roleData,
+            xemRef,
 
             getCoursesApp,
             getCourses3DArt,
+            showModal
         }
     },
     mounted(){
