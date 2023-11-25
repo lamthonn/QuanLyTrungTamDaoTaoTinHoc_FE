@@ -97,7 +97,9 @@
             </div>
             <div class="main main-full">
                 <div class="head-page">
-                    <h2 class="page-title"><span class="text-green" v-if="Courses3DArt.length > 0">#</span>3D Art &amp; Multimedia</h2>
+                    <h2 class="page-title"><span class="text-green" v-if="Courses3DArt.length > 0">#</span>3D Art &amp; Multimedia</h2> 
+                    <router-link to="/detailCourse"></router-link>      
+                    <router-link to="/AddNewCourse"><i class="custom-btn btn-10 iconadd">Thêm mới</i></router-link>
                     <div class="head-views">
                         <p class="result-search" id="result-search-2" style=" scroll-margin-top: 150px;">Có tổng cộng <u class="font-weight-bold">{{ Courses3DArt.length }} Khóa học</u> được tìm thấy</p>
                     </div>
@@ -105,9 +107,11 @@
                 <ul class="course-list" id="course-list-2">
                     <li v-for="course in Courses3DArt" :key="course.maKH">
                         <div class="course-thumb">
-                            <a href=""><img :src="require(`../assets/Courses/3D_ART/${course.pathImage}`)" /></a>
+                            <router-link to="/detailCourse"><img :src="require(`../assets/Courses/3D_ART/${course.pathImage}`)" /></router-link>
                         </div>
                         <div class="course-info">
+                            <router-link to="/detailCourse"><h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3></router-link>
+=======
                             <h3 class="course-name"><router-link to="/login">{{ course.tenKH }}</router-link></h3>
                             <div class="course-row">
                                 <div class="course-price">
@@ -137,7 +141,7 @@
                         </div>
                         <div class="control" v-if="role === '1' || roleData === '1'">
                             <div class="frame">
-                                <i class="custom-btn btn-10 iconadd">Thêm mới</i>
+                                
                                 <i class="custom-btn btn-10 iconedit ">Sửa</i>
                                 <i class="custom-btn btn-10 icondelete">Xóa</i>                   
                             </div>                         

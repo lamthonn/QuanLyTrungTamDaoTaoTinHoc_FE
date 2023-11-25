@@ -50,6 +50,18 @@ const routes = [
     component:() =>
       import("../components/socialMedia/addNews.vue"),
   },
+  {
+    path: "/detailCourse",
+    name: "detailCourse",
+    component:() =>
+      import("../components/course/DetailCourse.vue"),
+  },
+  {
+    path: "/AddNewCourse",
+    name: "AddNewCourse",
+    component:() =>
+      import("../components/course/AddNewCourse.vue"),
+  },
 ];
 
 const router = createRouter({
