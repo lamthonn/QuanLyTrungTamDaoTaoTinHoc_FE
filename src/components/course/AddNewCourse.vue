@@ -46,6 +46,7 @@ export default{
        AFormItem:FormItem,
        AInput:Input,
        AUpload:Upload,
+
        PlusOutlined,
    },
    setup(){

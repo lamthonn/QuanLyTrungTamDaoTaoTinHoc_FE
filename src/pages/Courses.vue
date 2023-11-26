@@ -17,9 +17,6 @@
                             <span class="icon"><img src="../assets/Courses/community-icon-2.svg" alt=""></span>
                             <div class="text">
                                 <a id="subject-2">3D Art &amp; Multimedia</a>
-                                <ul class="subject-sub" id="subject-sub-2">  
-                                    <li value="3"><a>3D Art &amp; Multimedia</a></li>
-                                </ul>
                             </div>
                         </li>
                     
@@ -188,7 +185,6 @@
                         </div>
                         <div class="control" v-if="role === '1' || roleData === '1'">
                             <div class="frame">
-                                <i class="custom-btn btn-10 iconadd">Thêm mới</i>
                                 <i class="custom-btn btn-10 iconedit ">Sửa</i>
                                 <i class="custom-btn btn-10 icondelete">Xóa</i>                   
                             </div>                         
@@ -272,21 +268,6 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
     }
     };
 
-        // const buyBtns = document.querySelectorAll('.custom-btn')
-        // const modal = document.querySelector('.js-modal')
-        // const modalContainer = document.querySelector('.js-modal-container')
-        // const modalClose= document.querySelector('.js-modal-close')
-        
-        // // hàm hiển thị form modal mua vé(thêm class open vào modal)
-        // function showBuyTickets(){
-        //     modal.classList.add('open')
-        // }
-
-        // // hàm ẩn form modal mua vé(gỡ bỏ class open vào modal)
-        // function hideBuyTickets(){
-        //     modal.classList.remove('open')
-        // }
-
         
 </script>
 <style scoped>
@@ -302,7 +283,6 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
     color: #5dc2a7;
     border-radius: 5px;
     padding: 10px 25px;
-    font-family: 'Lato', sans-serif;
     font-weight: 500;
     background: transparent;
     cursor: pointer;
