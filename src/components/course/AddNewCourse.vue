@@ -15,9 +15,6 @@
        <div class="rowCourse priceCourse">
            <input class ="inputCourse" type="price" v-model="price" placeholder="Nhập giá khóa học" required>
        </div>
-       <div class="rowCourse rateCourse">
-           <input class ="inputCourse" type="rate" v-model="rate" placeholder="Nhập đánh giá khóa học" required>
-       </div>
        <div class="rowCourse ageCourse">
            <input class ="inputCourse" type="luaTuoi" v-model="luaTuoi" placeholder="Nhập lứa tuổi của khóa học" required>
        </div>

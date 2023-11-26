@@ -27,6 +27,7 @@ import { RadioButton, RadioGroup } from 'ant-design-vue/es/components';
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
+import { notification } from 'ant-design-vue';
 
 export default {
   name: "RegisterPage",
@@ -55,23 +56,48 @@ export default {
     const SubmitRegister = ()=> {
       if(username.value === '')
       {
-        alert("chưa nhập username!")
+        notification.open({
+          message: 'Chưa nhập Username!!!',
+          onClick: () => {
+            console.log('Notification Clicked!');
+          },
+        });
       }
       else if(password.value === '')
       {
-        alert("chưa nhập password!")
+        notification.open({
+              message: 'chưa nhập password!!!',
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
       }
       else if(confirmPassword.value === '')
       {
-        alert("chưa xác nhận password!")
+        notification.open({
+              message: 'chưa xác nhận password!!!',
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
       }
       else if(email.value === '')
       {
-        alert("chưa nhập email!")
+        notification.open({
+              message: 'chưa nhập email!!!',
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
       }
       else if(Role.value === null)
       {
-        alert("chưa chọn đối tượng đăng ký!")
+        notification.open({
+              message: 'chưa chọn đối tượng đăng ký!!!',
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
       }
       else{
         store.dispatch('register', {
@@ -80,6 +106,7 @@ export default {
         'email':email.value,
         'roleName':Role.value,
         })
+
         router.push('/login');
       }
 

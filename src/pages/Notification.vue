@@ -33,12 +33,20 @@
           <a-collapse v-model:activeKey="activeKey2">
             <a-collapse-panel v-for="(gv, index) in dataGiangVien" :key="index" :header="gv.title">
               <p>{{ gv.description }}</p>
+              <div class="roleAdmin" style="display: grid;" v-if="roleData === '1' || role === '1'">
+                  <div>
+                    <a-button type="primary" @click="showModalEdit">Sửa</a-button>
+                    <a-modal v-model:open="openEdit" title="Sửa Thông Báo" @ok="EditData(hv.title)">
+                      <a-textarea v-model:value="EditThongBao" placeholder="Chi Tiết" :rows="4" />
+                    </a-modal>
+                  </div>
+                  <button type="button" class="btn btn-secondary">Xóa</button>
+                </div>
             </a-collapse-panel>
           </a-collapse>
         </a-tab-pane>
       </a-tabs>
     </div>
-  <!-- </div> -->
 </template>
 
 <script>

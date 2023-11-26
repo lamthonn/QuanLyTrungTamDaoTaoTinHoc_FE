@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { notification } from 'ant-design-vue';
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
@@ -47,7 +48,12 @@ export default {
           else{
             const decoded = jwtDecode(`${res.data.token }`);
             store.dispatch('login',decoded)
-            alert("đăng nhập thành công!"),
+            notification.open({
+              message: 'Đăng nhập thành công',
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
             router.push('/')
             console.log(computed(() => store.state.logined));
           }

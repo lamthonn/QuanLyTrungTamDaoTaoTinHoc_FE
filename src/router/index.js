@@ -62,6 +62,12 @@ const routes = [
     component:() =>
       import("../components/course/AddNewCourse.vue"),
   },
+  {
+    path: "/Schedule",
+    name: "schedule",
+    component:() =>
+      import("../pages/Schedule.vue"),
+  },
 ];
 
 const router = createRouter({

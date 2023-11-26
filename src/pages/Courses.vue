@@ -111,7 +111,6 @@
                         </div>
                         <div class="course-info">
                             <router-link to="/detailCourse"><h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3></router-link>
-                            <h3 class="course-name"><router-link to="/login">{{ course.tenKH }}</router-link></h3>
                             <div class="course-row">
                                 <div class="course-price">
                                     <label class="price-label">Chỉ còn</label>
