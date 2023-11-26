@@ -34,7 +34,10 @@
           <router-link class="nav-link mx-2" to="/socialMedia">Xã Hội</router-link>
         </li> -->
          <li class="nav-item">
-          <router-link class="nav-link mx-2" to="/notification">thông báo</router-link>
+          <router-link class="nav-link mx-2" to="/notification">Thông báo</router-link>
+        </li> 
+        <li class="nav-item">
+          <router-link class="nav-link mx-2" to="/Manage" v-if="Role !== '1'">Quản lý</router-link>
         </li> 
         <li class="nav-item ms-3" v-if="loginData === true || logined === 'true' ">
           <a-dropdown-button>

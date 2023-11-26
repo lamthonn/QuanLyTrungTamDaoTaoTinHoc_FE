@@ -62,6 +62,13 @@ const routes = [
     component:() =>
       import("../components/course/AddNewCourse.vue"),
   },
+
+  {
+    path: "/Manage",
+    name: "Manage",
+    component:() =>
+      import("../components/Manage.vue"),
+  },
 ];
 
 const router = createRouter({

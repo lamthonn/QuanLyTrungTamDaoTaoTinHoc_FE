@@ -108,7 +108,6 @@
                         </div>
                         <div class="course-info">
                             <router-link to="/detailCourse"><h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3></router-link>
-                            <h3 class="course-name"><router-link to="/login">{{ course.tenKH }}</router-link></h3>
                             <div class="course-row">
                                 <div class="course-price">
                                     <label class="price-label">Chỉ còn</label>
@@ -269,21 +268,6 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
     }
     };
 
-        // const buyBtns = document.querySelectorAll('.custom-btn')
-        // const modal = document.querySelector('.js-modal')
-        // const modalContainer = document.querySelector('.js-modal-container')
-        // const modalClose= document.querySelector('.js-modal-close')
-        
-        // // hàm hiển thị form modal mua vé(thêm class open vào modal)
-        // function showBuyTickets(){
-        //     modal.classList.add('open')
-        // }
-
-        // // hàm ẩn form modal mua vé(gỡ bỏ class open vào modal)
-        // function hideBuyTickets(){
-        //     modal.classList.remove('open')
-        // }
-
         
 </script>
 <style scoped>
@@ -299,7 +283,6 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
     color: #5dc2a7;
     border-radius: 5px;
     padding: 10px 25px;
-    font-family: 'Lato', sans-serif;
     font-weight: 500;
     background: transparent;
     cursor: pointer;

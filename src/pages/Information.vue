@@ -31,6 +31,16 @@
                             </template>
                             Trang xã hội
                         </a-button>
+                        <a-button type="primary" @click="showModalInformation">Sửa thông tin cá nhân</a-button>
+                        <a-modal v-model:open="openInformation" @ok="handleOk" >
+                            <h5 class="titleUpdate">Chỉnh sửa thông tin cá nhân</h5>
+                            <a-input v-model:value="hotentxt" placeholder="Chỉnh sửa họ tên" />
+                            <a-input v-model:value="phone" placeholder="Chỉnh sửa họ tên" />
+                            <a-input v-model:value="emailtxt" placeholder="Chỉnh sửa họ tên" />
+                            <a-input v-model:value="address_txt" placeholder="Chỉnh sửa họ tên" />
+                            <a-input v-model:value="datetxt" placeholder="Chỉnh sửa họ tên" />
+                            <a-input v-model:value="sextxt" placeholder="Chỉnh sửa họ tên" />
+                        </a-modal>
                     </div>
                 </a-card-grid>
 
@@ -43,12 +53,7 @@
                             <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ name }}</p>
                         </div>
                     </div>
-                    <div style="margin:0;" class="contentGrid-right" >
-                        <a-button type="primary" @click="showModalTen">Sửa đổi</a-button>
-                        <a-modal v-model:open="openten" title="chỉnh sửa thông tin" @ok="handleOk" >
-                            <a-input v-model:value="hotentxt" placeholder="Chỉnh sửa họ tên" />
-                        </a-modal>
-                    </div>
+                    
                 </a-card-grid>
                 
                 <!-- Email -->
@@ -59,12 +64,6 @@
                             <p style="margin:0;">Email:</p>
                             <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ email ? email : "--trống--" }}</p>
                         </div>
-                    </div>
-                    <div style="margin:0;" class="contentGrid-right" >
-                        <a-button type="primary" @click="showModalEmail">Sửa đổi</a-button>
-                        <a-modal v-model:open="openemail" title="chỉnh sửa thông tin" @ok="handleOk">
-                            <a-input v-model:value="emailtxt" placeholder="Chỉnh sửa email" />
-                        </a-modal>
                     </div>
                 </a-card-grid>
                 
@@ -77,12 +76,6 @@
                             <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ address ? address : "--trống--" }}</p>
                         </div>
                     </div>
-                    <div style="margin:0;" class="contentGrid-right" >
-                        <a-button type="primary" @click="showModalDiaChi">Sửa đổi</a-button>
-                        <a-modal v-model:open="opendiachi" title="chỉnh sửa thông tin" @ok="handleOk">
-                            <a-input v-model:value="address_txt" placeholder="Chỉnh sửa địa chỉ" />
-                        </a-modal>
-                    </div>
                 </a-card-grid>
 
                 <!-- ngày sinh -->
@@ -94,12 +87,6 @@
                             <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ date ? date : "--trống--"}}</p>
                         </div>
                     </div>
-                    <div style="margin:0;" class="contentGrid-right" >
-                        <a-button type="primary" @click="showModalNgaySinh">Sửa đổi</a-button>
-                        <a-modal v-model:open="openngaysinh" title="chỉnh sửa thông tin" @ok="handleOk">
-                            <a-input v-model:value="datetxt" placeholder="Chỉnh sửa ngày sinh" />
-                        </a-modal>
-                    </div>
                 </a-card-grid>
 
                 <!-- giới tính -->
@@ -110,12 +97,6 @@
                             <p style="margin:0;">Giới tính:</p>
                             <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ sex ? sex : "--trống--" }}</p>
                         </div>
-                    </div>
-                    <div style="margin:0;" class="contentGrid-right" >
-                        <a-button type="primary" @click="showModalGioiTinh">Sửa đổi</a-button>
-                        <a-modal v-model:open="opengioitinh" title="chỉnh sửa thông tin" @ok="handleOk">
-                            <a-input v-model:value="sextxt" placeholder="Chỉnh sửa giới tính" />
-                        </a-modal>
                     </div>
                 </a-card-grid>
             </a-card>
@@ -179,25 +160,13 @@ export default {
         const sextxt = ref('')
 
         //modal
-        const openten = ref(false);
+        const openInformation = ref(false);
         const openemail = ref(false);
         const opendiachi = ref(false);
         const openngaysinh = ref(false);
         const opengioitinh = ref(false);
-        const showModalTen = () => {
-            openten.value = true;
-        };
-        const showModalEmail = () => {
-            openemail.value = true;
-        };
-        const showModalNgaySinh = () => {
-            openngaysinh.value = true;
-        };
-        const showModalDiaChi = () => {
-            opendiachi.value = true;
-        };
-        const showModalGioiTinh = () => {
-            opengioitinh.value = true;
+        const showModalInformation = () => {
+            openInformation.value = true;
         };
 
         //Update
@@ -247,25 +216,14 @@ export default {
             role,
 
             //modal
-            openten,
-            openemail,
-            opendiachi,
-            openngaysinh,
-            opengioitinh,
-            
+            openInformation,
             hotentxt,
             emailtxt,
             address_txt,
             datetxt,
-            sextxt,
-
-            showModalTen,
-            showModalGioiTinh,
-            showModalDiaChi,
-            showModalNgaySinh,
-            handleOk,
-            showModalEmail,
-            
+            sextxt,          
+            showModalInformation,
+            handleOk,            
         }
     },
 
@@ -306,7 +264,6 @@ export default {
 </script>
 
 <style scoped>
-
 .cardHeader{
     width: 100%;
     padding:10px 0;
@@ -344,4 +301,11 @@ export default {
     align-items: center;
 }
 
+.titleUpdate{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 25px;
+    font-weight: bold;
+    color: #198754;
+}
 </style>
