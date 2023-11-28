@@ -27,6 +27,9 @@
           <li class="nav-item">
             <router-link class="nav-link mx-2" to="/Schedule" v-if="loginData === true || logined === 'true'">Thời khóa biểu</router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link mx-2" to="/Manage" v-if="RoleData === '1' || Role === '1'">Quản lý</router-link>
+          </li> 
           <li class="nav-item ms-3" v-if="loginData === true || logined === 'true'">
             <a-dropdown-button>
               {{ usernameData ? usernameData : username }}

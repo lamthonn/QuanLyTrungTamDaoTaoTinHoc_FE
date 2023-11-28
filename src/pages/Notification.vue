@@ -22,7 +22,9 @@
                       <a-textarea v-model:value="EditThongBao" placeholder="Chi Tiết" :rows="4" />
                     </a-modal>
                   </div>
-                  <button type="button" class="btn btn-secondary">Xóa</button>
+                  <div>
+                    <a-button type="primary" @click="btnDelete(hv.title)">Xóa</a-button>
+                  </div>
                 </div>
               </div>
             </a-collapse-panel>
@@ -36,11 +38,13 @@
               <div class="roleAdmin" style="display: grid;" v-if="roleData === '1' || role === '1'">
                   <div>
                     <a-button type="primary" @click="showModalEdit">Sửa</a-button>
-                    <a-modal v-model:open="openEdit" title="Sửa Thông Báo" @ok="EditData(hv.title)">
+                    <a-modal v-model:open="openEdit" title="Sửa Thông Báo" @ok="EditData(gv.title)">
                       <a-textarea v-model:value="EditThongBao" placeholder="Chi Tiết" :rows="4" />
                     </a-modal>
                   </div>
-                  <button type="button" class="btn btn-secondary">Xóa</button>
+                  <div>
+                    <a-button type="primary" @click="btnDelete(gv.title)">Xóa</a-button>
+                  </div>
                 </div>
             </a-collapse-panel>
           </a-collapse>
@@ -69,7 +73,8 @@ import {
 import { computed, h, reactive, ref } from 'vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { notification } from 'ant-design-vue';
+import { tabsProps } from 'ant-design-vue/es/tabs/src/Tabs';
 export default {
   name: 'Notification',
   components: {
@@ -89,7 +94,6 @@ export default {
   },
   setup() {
     //thông báo
-    const router = useRouter()
     const store = useStore();
     const activeKey1 = ref([]);
     const activeKey2 = ref([]);
@@ -102,7 +106,19 @@ export default {
     //EditThongBao
     const EditThongBao = ref('');
     const EditData = (title) => {
-      console.log(title);
+      axios.put(`https://localhost:7255/api/ThongBao/${title}`,{
+        title:title,
+        description:EditThongBao.value,
+      })
+      .then(()=>{
+        notification.open({
+              message: 'Sửa thông báo thành công',
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
+      openEdit.value = false;
+      })
     }
 
     //modal
@@ -111,44 +127,28 @@ export default {
     const showModalEdit = () => {
       openEdit.value = true;
     };
-
-    //menu
-    const state = reactive({
-      collapsed: false,
-      selectedKeys: ['3'],
-      // openKeys: ['sub1'],
-      // preOpenKeys: ['sub1'],
-    });
-    const items = reactive([
-      {
-        key: '2',
-        icon: () => h(TeamOutlined),
-        label: 'Xã hội',
-        title: 'Xã hội',
-
-      },
-      {
-        key: '3',
-        icon: () => h(MailOutlined),
-        label: 'Thông báo',
-        title: 'Thông báo',
-
-      },
-    ]);
-    const toggleCollapsed = () => {
-            state.collapsed = !state.collapsed;
-            // state.openKeys = state.collapsed ? [] : state.preOpenKeys;
-        };
-    const hanldeClick = (key) => {
-        if(key.key === '2')
-        {
-            router.push("/socialMedia");
+    const btnDelete = async (title) => {
+      await axios.delete(`https://localhost:7255/api/ThongBao/${title}`)
+      .then(()=>{
+        if(confirm("bạn có chắc chắn muốn xóa thông báo này?")){
+          notification.open({
+              message: 'Xóa thông báo thành công',
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
         }
-        else if(key.key === '3')
-        {
-            router.push("/notification");
-        }
+      })
+      .catch(err=>{
+        notification.open({
+              message: `${err}`,
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
+      })
     }
+    
 
     return {
       store,
@@ -163,13 +163,9 @@ export default {
       openEdit,
       EditThongBao,
 
-      state,
-      items,
-
       showModalEdit,
       EditData,
-      toggleCollapsed,
-      hanldeClick,
+      btnDelete,
     }
   },
   mounted() {
