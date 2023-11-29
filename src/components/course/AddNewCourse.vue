@@ -37,7 +37,7 @@
 
 <script>
 import { ref } from 'vue';
-import { Modal,FormItem, Input,Upload  } from 'ant-design-vue/es/components'
+import { Modal,FormItem, Input,Upload, notification  } from 'ant-design-vue/es/components'
 import { PlusOutlined } from '@ant-design/icons-vue';
 export default{
    name: "AddNewCourse-",
@@ -61,42 +61,98 @@ export default{
        const maGV = ref('');
        const visible = ref(false);
        const resetData=()=>{
-           const maKH = ref('');
-           const tenKH = ref('');
-           const description = ref('');
-           const price = ref('');
-           const rate = ref('');
-           const luaTuoi = ref('');
-           const loai = ref('');
-           const pathImage = ref('');
-           const maGV = ref('');}
+           maKH.value = ''
+           tenKH.value = ''
+           description.value = ''
+           price.value = ''
+           rate.value = ''
+           luaTuoi.value = ''
+           loai.value = ''
+           pathImage.value = ''
+           maGV.value = ''
+        //    visible.value = ''
+
+        }
        const handleOk= () => {
            if(maKH.value === ''){
-               alert("Chưa nhập Mã khóa học!")
+               notification.open({
+                    message: 'Chưa nhập Mã khóa học!',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                });
            }
            else if(tenKH.value === ''){
-               alert("Chưa nhập Tên khóa học!")
+            //    alert("Chưa nhập Tên khóa học!")
+               notification.open({
+                    message: 'Chưa nhập Tên khóa học!',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                });
            }
            else if(description.value === ''){
-               alert("Chưa nhập Mô tả khóa học!")
+            //    alert("Chưa nhập Mô tả khóa học!")
+               notification.open({
+                    message: 'Chưa nhập Mô tả khóa học!',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                });
            }
            else if(price.value === ''){
-               alert("Chưa nhập Giá khóa học!")
+            //    alert("Chưa nhập Giá khóa học!")
+               notification.open({
+                    message: 'Chưa nhập Giá khóa học!',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                });
            }
            else if(rate.value === ''){
-               alert("Chưa nhập Đánh giá ban đầu khóa học!")
+            //    alert("Chưa nhập Đánh giá ban đầu khóa học!")
+            notification.open({
+                    message: 'Chưa nhập Đánh giá ban đầu khóa học!',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                });
            }
            else if(luaTuoi.value === ''){
-               alert("Chưa nhập Lứa tuổi khóa học!")
+            //    alert("Chưa nhập Lứa tuổi khóa học!")
+            notification.open({
+                    message: 'Chưa nhập Lứa tuổi khóa học!',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                });
            }
            else if(loai.value === ''){
-               alert("Chưa nhập Loại khóa học!")
+            //    alert("Chưa nhập Loại khóa học!")
+            notification.open({
+                    message: 'Chưa nhập Loại khóa học!',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                });
            }
            else if(pathImage.value === ''){
-               alert("Chưa nhập Đường link ảnh khóa học!")
+            //    alert("Chưa nhập Đường link ảnh khóa học!")
+               notification.open({
+                    message: 'Chưa tải ảnh khóa học!',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                });
            }
            else if(maGV.value === ''){
-               alert("Chưa nhập Mã giáo viên khóa học!")
+            //    alert("Chưa nhập Mã giáo viên khóa học!")
+            notification.open({
+                    message: 'Chưa nhập Mã giáo viên khóa học!',
+                    onClick: () => {
+                        console.log('Notification Clicked!');
+                    },
+                });
            }
            else{
                store.dispatch('addNewCourse',{

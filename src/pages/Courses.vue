@@ -93,10 +93,10 @@
                 </div>
             </div>
             <div class="main main-full">
+                <div v-if="role === '1' || roleData === '1'" @click="showModal"><i class="custom-btn btn-10 ">Thêm mới</i></div>
                 <div class="head-page">
                     <h2 class="page-title"><span class="text-green" v-if="Courses3DArt.length > 0">#</span>3D Art &amp; Multimedia</h2> 
                     <router-link to="/detailCourse"></router-link>      
-                    <div to="/AddNewCourse" v-if="role === '1' || roleData === '1'" @click="showModal"><i class="custom-btn btn-10 iconadd">Thêm mới</i></div>
                     <div class="head-views">
                         <p class="result-search" id="result-search-2" style=" scroll-margin-top: 150px;">Có tổng cộng <u class="font-weight-bold">{{ Courses3DArt.length }} Khóa học</u> được tìm thấy</p>
                     </div>
@@ -104,10 +104,58 @@
                 <ul class="course-list" id="course-list-2">
                     <li v-for="course in Courses3DArt" :key="course.maKH">
                         <div class="course-thumb">
-                            <router-link to="/detailCourse"><img :src="require(`../assets/Courses/3D_ART/${course.pathImage}`)" /></router-link>
+                            <router-link :to="{ name: 'detailCourse', params: { maKH: course.maKH } }"><img :src="require(`../assets/Courses/${course.pathImage}`)" /></router-link>
                         </div>
                         <div class="course-info">
-                            <router-link to="/detailCourse"><h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3></router-link>
+                            <router-link :to="{ name: 'detailCourse', params: { maKH: course.maKH } }"><h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3></router-link>
+                            <div class="course-row">
+                                <div class="course-price">
+                                    <label class="price-label">Chỉ còn</label>
+                                    <div class="price"><strong>{{ course.price }}</strong>.000</div>
+                                    <div class="unit"><sup class="unit-label">đ</sup>/giờ</div>
+                                </div>     
+                            <div class="course-prize">
+                                <span class="prize-poin">{{ course.rate }}</span>
+                                <div class="prize-star">
+                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
+                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
+                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
+                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
+                                    <img class="svg" src="../assets/Courses/3D_ART/start-half-icon.svg">
+                                </div>
+                                <span class="prize-total" >(2543)</span>
+                            </div>
+                            <span class="course-ctg">{{ course.luaTuoi }} tuổi</span>
+                            </div>
+                            <p class="course-text">{{ course.description }}</p>
+                            <div class="course-tools">
+                                <!-- <span><img src="projects/tools/2022/03/01/CoSpaces_Logo.svg.png" alt=""></span>
+                                <span><img src="projects/tools/2022/04/29/Robot_Thumbnail_Resized-e1574666381369.png" alt=""></span>
+                                <span><img src="projects/tools/2022/03/01/xyz-print.png" alt=""></span> -->
+                            </div>
+                        </div>
+                        <div class="control" v-if="role === '1' || roleData === '1'">
+                            <div class="frame">
+                                <i class="custom-btn btn-10 iconedit">Sửa</i>
+                                <i class="custom-btn btn-10 icondelete">Xóa</i>                   
+                            </div>                         
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="head-page">
+                    <h2 class="page-title"><span class="text-green" v-if="CoursesApp.length > 0">#</span>Programming &amp; Application</h2>
+                    <div class="head-views">
+                        <p class="result-search" id="result-search-2" style=" scroll-margin-top: 150px;">Có tổng cộng <u class="font-weight-bold">{{ CoursesApp.length }} Khóa học</u> được tìm thấy</p>
+                    </div>
+                </div>
+                <ul class="course-list" id="course-list-2">
+                    <li v-for="course in CoursesApp" :key="course.maKH">
+                        <div class="course-thumb">
+                            <router-link :to="{ name: 'detailCourse', params: { maKH: course.maKH } }"><img :src="require(`../assets/Courses/${course.pathImage}`)" /></router-link>
+                        </div>
+                        <div class="course-info">
+                            <router-link :to="{ name: 'detailCourse', params: { maKH: course.maKH } }"><h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3></router-link>
                             <div class="course-row">
                                 <div class="course-price">
                                     <label class="price-label">Chỉ còn</label>
@@ -143,64 +191,9 @@
                         </div>
                     </li>
                 </ul>
-
-                <div class="head-page">
-                    <h2 class="page-title"><span class="text-green" v-if="CoursesApp.length > 0">#</span>Programming &amp; Application</h2>
-                    <div class="head-views">
-                        <p class="result-search" id="result-search-2" style=" scroll-margin-top: 150px;">Có tổng cộng <u class="font-weight-bold">{{ CoursesApp.length }} Khóa học</u> được tìm thấy</p>
-                    </div>
-                </div>
-                <ul class="course-list" id="course-list-2">
-                    <li v-for="course in CoursesApp" :key="course.maKH">
-                        <div class="course-thumb">
-                            <img :src="require(`../assets/Courses/3D_ART/${course.pathImage}`)" />
-                        </div>
-                        <div class="course-info">
-                            <h3 class="course-name"><a href="">{{ course.tenKH }}</a></h3>
-                            <div class="course-row">
-                                <div class="course-price">
-                                    <label class="price-label">Chỉ còn</label>
-                                    <div class="price"><strong>{{ course.price }}</strong>.000</div>
-                                    <div class="unit"><sup class="unit-label">đ</sup>/giờ</div>
-                                </div>     
-                            <div class="course-prize">
-                                <span class="prize-poin">{{ course.rate }}</span>
-                                <div class="prize-star">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-icon.svg">
-                                    <img class="svg" src="../assets/Courses/3D_ART/start-half-icon.svg">
-                                </div>
-                                <span class="prize-total">(2543)</span>
-                            </div>
-                            <span class="course-ctg">{{ course.luaTuoi }} tuổi</span>
-                            </div>
-                            <p class="course-text">{{ course.description }}</p>
-                            <div class="course-tools">
-                                <!-- <span><img src="projects/tools/2022/03/01/CoSpaces_Logo.svg.png" alt=""></span>
-                                <span><img src="projects/tools/2022/04/29/Robot_Thumbnail_Resized-e1574666381369.png" alt=""></span>
-                                <span><img src="projects/tools/2022/03/01/xyz-print.png" alt=""></span> -->
-                            </div>
-                        </div>
-                        <div class="control" v-if="role === '1' || roleData === '1'">
-                            <div class="frame">
-                                <i class="custom-btn btn-10 iconedit ">Sửa</i>
-                                <i class="custom-btn btn-10 icondelete">Xóa</i>                   
-                            </div>                         
-                        </div>
-                    </li>
-                </ul>
             </div>       
         </div>
-        <div class="modal js-modal">
-            <div class="madal-container js-modal-container">
-                <div class="modal-close js-modal-close">
-                    <i class="ti-close"></i>
-                </div>
-                <h2>Thêm khóa học</h2>
-            </div>
-        </div>
+        
     </div>
     <AddNewCourseVue ref="xemRef"/>
 </template>
@@ -236,14 +229,14 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
         }
         //get data khóa học Programming & Application
         const getCoursesApp = async () => {
-            CoursesApp.value = await getData('Programming & Application');
+            CoursesApp.value = await getData('Programming&Application');
+            console.log(CoursesApp.value);
         }
         getCoursesApp();
 
         //get data khóa học 3D Art & Multimedia
         const getCourses3DArt = async () => {
-            Courses3DArt.value = await getData('3D Art & Multimedia');
-            console.log(Courses3DArt.value);
+            Courses3DArt.value = await getData('3D_ART');
         }
         getCourses3DArt();
 
@@ -318,7 +311,7 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
     }
     .wrap-main #sidebar .sidebar-main {
     background-color: #F2F6FE;
-    position: sticky;
+    /* position: sticky; */
     top: 130px;
     height: calc(100vh - 130px);
     padding: 20px 17px 32px;

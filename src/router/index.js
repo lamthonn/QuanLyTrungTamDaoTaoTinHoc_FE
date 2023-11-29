@@ -51,8 +51,9 @@ const routes = [
       import("../components/socialMedia/addNews.vue"),
   },
   {
-    path: "/detailCourse",
+    path: "/detailCourse/:maKH",
     name: "detailCourse",
+    props: true,
     component:() =>
       import("../components/course/DetailCourse.vue"),
   },

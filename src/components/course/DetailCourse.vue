@@ -4,12 +4,12 @@
         <ul class="breadcrumb-list">
             <li><a href="/phu-huynh/danh-sach-khoa-hoc/">Trang chủ</a></li>
             <li><a href="#">Sản phẩm</a></li>
-            <li>Digi Girl: STEAM Art</li>
+            <li>{{ dataByMaKH.tenKH }}</li>
         </ul>
         <div class="product-wrap">
             <div class="product-introduce">
-                <h2 class="product-name">Digi Girl: STEAM Art</h2>
-                <p class="mb-0">Xây dựng đam mê, tạo nền tảng kiến thức Công nghệ; Giáo trình đặc biệt dành cho Học sinh nữ trong thời đại số</p>
+                <h2 class="product-name">{{ dataByMaKH.tenKH }}</h2>
+                <p class="mb-0">{{ dataByMaKH.description }}</p>
             </div>
             <div class="product-prize">
                     <div class="prize-view">
@@ -21,7 +21,7 @@
                         <span class="view-label">+3152 Bạn đã học </span>
                     </div>
                     <div class="course-prize">
-                        <span class="prize-poin">4,6</span>
+                        <span class="prize-poin">{{ dataByMaKH.rate }}</span>
                         <div class="prize-star">
                             <i class="icon12-star"></i><i class="icon12-star"></i><i class="icon12-star"></i><i class="icon12-star"></i><i class="icon12-star-half"></i>                   
                         </div>
@@ -56,6 +56,7 @@
                         <div class="embed-responsive embed-responsive-16by9"><iframe allowfullscreen="" class="embed-responsive-item" src="https://www.youtube.com/embed/zUR9i60zLo8"></iframe></div>
                         <h3>THỜI ĐẠI 4.0, TRẺ EM PHẢI HỌC LẬP TRÌNH</h3>
                         <h4>Vì sao trẻ em nên học lập trình?</h4>
+                        <!-- {{ dataByMaKH.description }} -->
                         <ul>
                             <li>Anh, Mỹ, Trung Quốc, HongKong, Singapore, Nhật v.v.. đều bắt buộc học lập trình từ lớp 1.</li>
                             <li>Trên 100 triệu học sinh từ 7 tuổi đã học lập trình trên nền tảng Scratch (MIT, Mỹ), Minecraft (Microsoft) v.v…</li>
@@ -198,10 +199,10 @@
                 <div class="form-register">
                     <div class="course-price">
                     <label class="price-label">Chỉ từ</label>
-                    <div class="price"><strong>200</strong>.000</div>
+                    <div class="price"><strong>{{ dataByMaKH.price }}</strong>.000</div>
                     <div class="unit"><sup class="unit-label">đ</sup>/giờ</div>
                     </div>
-                    <a class="btn btn-animation btn-register  is-learn-try" href="#" data-toggle="modal" data-target="#modalRegisterOnline" data-course_id="874" data-course_name="Digi Girl: STEAM Art"><span><strong>Đăng ký học thử</strong>Hoàn toàn miễn phí</span></a>
+                    <a class="btn btn-animation btn-register  is-learn-try" href="#" data-toggle="modal" data-target="#modalRegisterOnline" data-course_id="874" @click="showModalRegister"><span><strong>Đăng ký học thử</strong>Hoàn toàn miễn phí</span></a>
                     <div class="space-or"><span>Hoặc</span></div>
                     <button class="btn btn-call"><span>Gọi ngay để tư vấn</span></button>
                     <div class="form-group">
@@ -211,7 +212,7 @@
                     
                     <div class="form-group">
                         <label class="form-label">Độ tuổi</label>
-                        <strong class="form-text">7-11 tuổi</strong>
+                        <strong class="form-text">{{ dataByMaKH.luaTuoi }} tuổi</strong>
                     </div>
                     
                     
@@ -229,7 +230,7 @@
                     
                     <div class="form-group">
                         <label class="form-label">Lớp tiêu chuẩn</label>
-                        <strong class="form-text">16học sinh</strong>
+                        <strong class="form-text">16 học sinh</strong>
                         </div>
                     
                     
@@ -267,8 +268,42 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router';
+import axios from 'axios';
+import { notification } from 'ant-design-vue';
 export default {
     name: "detailCourse-",
+    setup(){
+        const router = useRouter();
+        const dataByMaKH = ref([]);
+        console.log(dataByMaKH);
+
+        const showModalRegister = () => {
+
+        }
+        return {
+            router,
+            dataByMaKH,
+            showModalRegister
+        }
+    },
+    mounted(){
+        const MaKH = this.$route.params.maKH;
+        const getData = async () => {
+            await axios.get(`https://localhost:7255/api/KhoaHoc/${MaKH}`)
+                    .then(async res => this.dataByMaKH = res.data)
+                    .catch((err)=>{
+                        notification.open({
+                            message: `${err}`,
+                            onClick: () => {
+                                console.log('Notification Clicked!');
+                            },
+                            });
+                    })
+        }
+        getData();
+    }
 }
 </script>
 

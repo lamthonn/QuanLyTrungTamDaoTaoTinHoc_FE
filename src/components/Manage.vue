@@ -28,8 +28,8 @@
                             <td> {{ hocvien.gioiTinh }}</td>
                             <td>
                                 <div class="frame">
-                                    <div class="iconOperation"><i class="fa-solid fa-pen"></i></div>
-                                    <div class="iconOperation"><i class="fa-solid fa-trash-can"></i></div>                                   
+                                    <div class="iconOperation" @click="changeStudent"><i class="fa-solid fa-pen"></i></div>
+                                    <div class="iconOperation" @click="deleteStudent"><i class="fa-solid fa-trash-can"></i></div>                                   
                                 </div>   
                             </td>
                         </tr>
@@ -50,7 +50,40 @@
 
         <a-tab-pane key="2" tab="Giảng Viên">
           <a-collapse>
-                <h2>Giảng viên</h2>
+            <a-collapse>
+                <h2>DANH SÁCH GIẢNG VIÊN</h2>
+                <table class="container">
+                    <thead>
+                        <tr>
+                            <th>Mã giảng viên</th>
+                            <th>Tên giảng viên</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Ngày sinh</th>
+                            <th>Giới tính</th>
+                            <th colspan="2">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="giangvien in danhSachGiangVien" :key="giangvien.id">
+                            <td>{{ giangvien.maGV }}</td>
+                            <td>{{ giangvien.tenGV }}</td>
+                            <td>{{ giangvien.diaChi }}</td>
+                            <td>{{ giangvien.sdt }}</td>
+                            <td> {{ giangvien.email }}</td>
+                            <td> {{ giangvien.ngaySinh }}</td>
+                            <td> {{ giangvien.gioiTinh }}</td>
+                            <td>
+                                <div class="frame">
+                                    <div class="iconOperation" @click="changeTeacher"><i class="fa-solid fa-pen"></i></div>
+                                    <div class="iconOperation" @click="deleteTeacher"><i class="fa-solid fa-trash-can"></i></div>                                   
+                                </div>   
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+          </a-collapse>
           </a-collapse>
         </a-tab-pane>
       </a-tabs>
@@ -58,7 +91,7 @@
 </template>
 
 <script>
-import { Tabs, TabPane, Collapse } from 'ant-design-vue/es/components'
+import { Tabs, TabPane, Collapse, notification } from 'ant-design-vue/es/components'
 import axios from 'axios';
 import { ref, onMounted } from 'vue';  // Import ref và onMounted từ Vue
 
@@ -71,23 +104,62 @@ export default {
   },
   setup() {
     const danhSachHocVien = ref([]);
+    const danhSachGiangVien = ref([]);
 
-    // Sử dụng onMounted thay vì mounted
     onMounted(() => {
       const HVGetData = () => {
         axios.get('https://localhost:7255/api/HocVien')  
           .then(res => {
             danhSachHocVien.value = res.data;  // Sử dụng .value để gán giá trị cho ref
-            console.log(res.data);
           })
-          .catch(err => console.error('Lỗi khi lấy dữ liệu học viên', err));  // Sửa tên biến lỗi thành 'err'
+          .catch(err => {
+            notification.open({
+              message: `lỗi khi lấy dữ liệu học viên:${err}`,
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
+          });  
       }
-
       HVGetData();
+
+      const GVGetData = () => {
+        axios.get("https://localhost:7255/api/GiangVien/getAllGV")
+        .then(res => {
+            danhSachGiangVien.value = res.data;  // Sử dụng .value để gán giá trị cho ref
+          })
+          .catch(err => {
+            notification.open({
+              message: `lỗi khi lấy dữ liệu giảng viên:${err}`,
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
+          });
+      }
+      GVGetData();
     });
 
+    const changeStudent = () => {
+
+    }
+    const deleteStudent = () => {
+
+    }
+
+    const changeTeacher = () =>{
+        
+    }
+    const deleteTeacher = () =>{
+
+    }
     return {
       danhSachHocVien,
+      danhSachGiangVien,
+      changeStudent,
+      deleteStudent,
+      changeTeacher,
+      deleteTeacher,
     }
   },
 };
