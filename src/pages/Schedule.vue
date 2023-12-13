@@ -33,81 +33,81 @@ export default {
             switch (value.date()) {
                 case 3:
                     listData = [
-                        { type: 'warning', content: "Khóa học:"},
-                        { type: 'success', content: 'Phòng học:' },
-                        { type: 'error', content: 'Giảng viên' },
+                        { type: 'warning', content: "Digi Girl: STEAM Art"},
+                        { type: 'success', content: 'Phòng học:A101' },
+                        { type: 'error', content: 'Giảng viên: Minh Tuấn' },
                         
                     ];
                     break;
                 case 6:
                     listData = [
-                        { type: 'warning', content: 'Khóa học:' },
-                        { type: 'success', content: 'Phòng học:' },
-                        { type: 'error', content: 'Giảng viên' },
+                        { type: 'warning', content: "Digi Style: MultiMedia"},
+                        { type: 'success', content: 'Phòng học:A102' },
+                        { type: 'error', content: 'Giảng viên: Loan Đặng' },
                         
                     ];
                     break;
                 case 9:
                     listData = [
-                        { type: 'warning', content: 'Khóa học:' },
-                        { type: 'success', content: 'Phòng học:' },
-                        { type: 'error', content: 'Giảng viên' },
+                        { type: 'warning', content: 'Siêu nhân Lập trình Web' },
+                        { type: 'success', content: 'Phòng học:A201' },
+                        { type: 'error', content: 'Giảng viên: Tùng Lâm' },
                         
                     ];
                     break;
                 case 12:
                     listData = [
-                        { type: 'warning', content: 'Khóa học:' },
-                        { type: 'success', content: 'Phòng học:' },
-                        { type: 'error', content: 'Giảng viên' },
+                        { type: 'warning', content: 'Siêu nhân Lập trình App' },
+                        { type: 'success', content: 'Phòng học:A201' },
+                        { type: 'error', content: 'Giảng viên: Tùng Lâm' },
                         
                     ];
                     break;
                 case 15:
                     listData = [
-                        { type: 'warning', content: 'Khóa học:' },
-                        { type: 'success', content: 'Phòng học:' },
-                        { type: 'error', content: 'Giảng viên' },
+                        { type: 'warning', content: 'Lập trình App với Swift' },
+                        { type: 'success', content: 'Phòng học:A301' },
+                        { type: 'error', content: 'Giảng viên:Vũ Công Minh' },
                         
                     ];
                     break;
                 case 18:
                     listData = [
-                        { type: 'warning', content: 'Khóa học:' },
-                        { type: 'success', content: 'Phòng học:' },
-                        { type: 'error', content: 'Giảng viên' },
+                        { type: 'warning', content: "Digi Girl: STEAM Art"},
+                        { type: 'success', content: 'Phòng học:A101' },
+                        { type: 'error', content: 'Giảng viên: Minh Tuấn' },
                         
                     ];
                     break;
                 case 21:
                     listData = [
-                        { type: 'warning', content: 'Khóa học:' },
-                        { type: 'success', content: 'Phòng học:' },
-                        { type: 'error', content: 'Giảng viên' },
+                        { type: 'warning', content: "Digi Style: MultiMedia"},
+                        { type: 'success', content: 'Phòng học:A102' },
+                        { type: 'error', content: 'Giảng viên: Loan Đặng' },
                         
                     ];
                     break;
                 case 24:
                     listData = [
-                        { type: 'warning', content: 'Khóa học:' },
-                        { type: 'success', content: 'Phòng học:' },
-                        { type: 'error', content: 'Giảng viên' },
+                        { type: 'warning', content: 'Siêu nhân Lập trình Web' },
+                        { type: 'success', content: 'Phòng học:A201' },
+                        { type: 'error', content: 'Giảng viên: Tùng Lâm' },
                         
                     ];
                     break;
                 case 27:
                     listData = [
-                        { type: 'warning', content: 'Khóa học:' },
-                        { type: 'success', content: 'Phòng học:' },
-                        { type: 'error', content: 'Giảng viên' },
+                        { type: 'warning', content: 'Siêu nhân Lập trình App' },
+                        { type: 'success', content: 'Phòng học:A201' },
+                        { type: 'error', content: 'Giảng viên: Tùng Lâm' },
                         
                     ];
                     break;
                 case 30:
                     listData = [
-                        { type: 'warning', content: 'Khóa học:' },
-                        { type: 'success', content: 'Phòng học:' },
-                        { type: 'error', content: 'Giảng viên' },
+                        { type: 'warning', content: 'Lập trình App với Swift' },
+                        { type: 'success', content: 'Phòng học:A301' },
+                        { type: 'error', content: 'Giảng viên:Vũ Công Minh' },
                         
                     ];
                     break;

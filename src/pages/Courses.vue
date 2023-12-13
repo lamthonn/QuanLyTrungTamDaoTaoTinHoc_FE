@@ -93,7 +93,17 @@
                 </div>
             </div>
             <div class="main main-full">
-                <div v-if="role === '1' || roleData === '1'" @click="showModal"><i class="custom-btn btn-10 ">Thêm mới</i></div>
+                <div v-if="role === '1' || roleData === '1'" style="display: flex; justify-content: flex-end;">
+                    <a-dropdown-button @click="handleButtonClick">
+                        Khác
+                        <template #overlay>
+                            <a-menu @click="handleMenuClick">
+                                <a-menu-item @click="showModal" key="1">Thêm khóa học</a-menu-item>
+                                <a-menu-item key="2">Danh sách khóa học - dạng bảng</a-menu-item>
+                            </a-menu>
+                        </template>
+                    </a-dropdown-button>
+                </div>
                 <div class="head-page">
                     <h2 class="page-title"><span class="text-green" v-if="Courses3DArt.length > 0">#</span>3D Art &amp; Multimedia</h2> 
                     <router-link to="/detailCourse"></router-link>      
@@ -198,16 +208,22 @@
     <AddNewCourseVue ref="xemRef"/>
 </template>
 <script>
-import { Carousel } from 'ant-design-vue/es/components';
+import { Carousel,DropdownButton,Menu, MenuItem } from 'ant-design-vue/es/components';
 import { computed, ref } from 'vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
+import {EllipsisOutlined,DownOutlined  } from '@ant-design/icons-vue';
 import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
     export default {
     name: "Courses-",
     components: {
         ACarousel: Carousel,
-        AddNewCourseVue
+        AddNewCourseVue,
+        ADropdownButton: DropdownButton,
+        AMenuItem: MenuItem,
+        AMenu: Menu,
+        EllipsisOutlined,
+        DownOutlined 
     },
     setup() {
         const store = useStore()
@@ -243,6 +259,13 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
         const showModal =() => {
             xemRef.value.visible = true
         }
+        const handleButtonClick = e => {
+            console.log('click left button', e);
+        };
+        const handleMenuClick = e => {
+            console.log('click', e);
+        };
+        
         return {
             store,
             CoursesApp,
@@ -253,7 +276,9 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
 
             getCoursesApp,
             getCourses3DArt,
-            showModal
+            showModal,
+            handleButtonClick,
+            handleMenuClick
         }
     },
     mounted(){
@@ -264,6 +289,10 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
         
 </script>
 <style scoped>
+.demo-dropdown-wrap :deep(.ant-dropdown-button) {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
 *{
     font-family: 'Quicksand', sans-serif;
 }

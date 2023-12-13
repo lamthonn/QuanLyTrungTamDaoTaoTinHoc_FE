@@ -1,14 +1,15 @@
 <template>
-  <!-- <div style="display:flex;"> -->
-    <!-- <div style="width: 15%">
+  <div style="display:flex;">
+    <div style="width: 15%">
       <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
         <MenuUnfoldOutlined v-if="state.collapsed" />
         <MenuFoldOutlined v-else />
       </a-button>
       <a-menu v-model:openKeys="state.openKeys" v-model:selectedKeys="state.selectedKeys" mode="inline" theme="light"
         :inline-collapsed="state.collapsed" :items="items" @click="hanldeClick"></a-menu>
-    </div> -->
-    <div style="width: 76%; margin-left:12%;">
+    </div>
+    <div style="width: 75%; ">
+      <PlusSquareOutlined style="font-size:25px;" v-if="roleData === '1' || role === '1'"/>Thêm thông báo
       <a-tabs>
         <a-tab-pane key="1" tab="Học Viên">
           <a-collapse v-model:activeKey="activeKey1">
@@ -51,6 +52,7 @@
         </a-tab-pane>
       </a-tabs>
     </div>
+  </div>
 </template>
 
 <script>
@@ -69,12 +71,14 @@ import {
   MenuUnfoldOutlined,
   TeamOutlined,
   MailOutlined,
+  PlusSquareOutlined 
 } from '@ant-design/icons-vue';
 import { computed, h, reactive, ref } from 'vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
 import { notification } from 'ant-design-vue';
 import { tabsProps } from 'ant-design-vue/es/tabs/src/Tabs';
+import { useRouter } from 'vue-router';
 export default {
   name: 'Notification',
   components: {
@@ -91,8 +95,59 @@ export default {
     MenuUnfoldOutlined,
     TeamOutlined,
     MailOutlined,
+    PlusSquareOutlined 
   },
   setup() {
+    const router = useRouter();
+    const state = reactive({
+            collapsed: false,
+            selectedKeys: ['3'],
+            // openKeys: ['sub1'],
+            // preOpenKeys: ['sub1'],
+        });
+    const items = reactive([
+        
+        {
+            key: '2',
+            icon: () => h(TeamOutlined),
+            label: 'Xã hội',
+            title: 'Xã hội',
+            
+        },
+        {
+            key: '3',
+            icon: () => h(MailOutlined),
+            label: 'Thông báo',
+            title: 'Thông báo',
+            
+        },
+        
+    ]);
+    const toggleCollapsed = () => {
+            state.collapsed = !state.collapsed;
+            // state.openKeys = state.collapsed ? [] : state.preOpenKeys;
+        };
+
+    const hanldeClick = (key) => {
+        if(key.key === '1')
+        {
+            if(Role.value === '2' || RoleData.value === '2' )
+            {
+                addBaiViet();
+            }
+            else{
+                openNotificationWithIcon('warning')
+            }
+        }
+        else if(key.key === '2')
+        {
+            router.push("/socialMedia");
+        }
+        else if(key.key === '3')
+        {
+            router.push("/notification");
+        }
+    }
     //thông báo
     const store = useStore();
     const activeKey1 = ref([]);
@@ -148,14 +203,17 @@ export default {
             });
       })
     }
-    
+     
 
     return {
+      router,
       store,
       activeKey1,
       activeKey2,
       dataHocVien,
       dataGiangVien,
+      state,
+      items,
 
       role,
       roleData,
@@ -166,6 +224,8 @@ export default {
       showModalEdit,
       EditData,
       btnDelete,
+      toggleCollapsed,
+      hanldeClick,
     }
   },
   mounted() {

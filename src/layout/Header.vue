@@ -15,18 +15,21 @@
           </li>
 
           <li class="nav-item">
-            <router-link class="nav-link mx-2" to="/recourses" v-if="RoleData !== '' || Role !== null">Khóa
+            <router-link class="nav-link mx-2" to="/recourses" v-if="RoleData !== '' || Role !== ''">Khóa
               Học</router-link>
           </li>
           <!-- <li class="nav-item">
           <router-link class="nav-link mx-2" to="/socialMedia">Xã Hội</router-link>
         </li> -->
           <li class="nav-item">
-            <router-link class="nav-link mx-2" to="/notification">thông báo</router-link>
+            <router-link class="nav-link mx-2" to="/notification">Thông báo</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link mx-2" to="/Schedule" v-if="loginData === true || logined === 'true'">Thời khóa biểu</router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link mx-2" to="/socialMedia">Xã hội</router-link>
+          </li> 
           <li class="nav-item">
             <router-link class="nav-link mx-2" to="/Manage" v-if="RoleData === '1' || Role === '1'">Quản lý</router-link>
           </li> 

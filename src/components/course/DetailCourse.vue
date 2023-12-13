@@ -1,4 +1,5 @@
 <template>
+    <CourseRegister ref="xemRef"/>
     <div id="detailCourse" class="product-detial-page">
         <div class="product-banner" >
         <ul class="breadcrumb-list">
@@ -265,6 +266,7 @@
             </div>
         </div>
     </div>
+    
 </template>
 
 <script>
@@ -272,19 +274,25 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { notification } from 'ant-design-vue';
+import CourseRegister from './CourseRegister.vue';
 export default {
     name: "detailCourse-",
+    components:{
+        CourseRegister
+    },
     setup(){
+        const xemRef = ref();
         const router = useRouter();
         const dataByMaKH = ref([]);
         console.log(dataByMaKH);
 
         const showModalRegister = () => {
-
+            xemRef.value.visible = true;
         }
         return {
             router,
             dataByMaKH,
+            xemRef,
             showModalRegister
         }
     },

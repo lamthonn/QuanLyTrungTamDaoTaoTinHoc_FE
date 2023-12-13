@@ -36,28 +36,48 @@ export default {
     const password = ref('');
 
     const submitLogin = async () => {
-        
-        await axios.post("https://localhost:7255/api/TaiKhoan/login",{
-          account: username.value,
-          password: password.value,
-        })
-        .then(res => {
-          if(res.data === ''){
-            alert("Đăng nhập thất bại!");
-          }
-          else{
-            const decoded = jwtDecode(`${res.data.token }`);
-            store.dispatch('login',decoded)
+        if(username.value === '')
+        {
+          notification.open({
+            message: 'chưa nhập username!',
+            onClick: () => {
+              console.log('Notification Clicked!');
+            },
+          });
+        }
+        else{
+          if(password.value === ''){
             notification.open({
-              message: 'Đăng nhập thành công',
+              message: 'chưa nhập password!',
               onClick: () => {
                 console.log('Notification Clicked!');
               },
             });
-            router.push('/')
-            console.log(computed(() => store.state.logined));
           }
-        })
+          else{
+            await axios.post("https://localhost:7255/api/TaiKhoan/login",{
+              account: username.value,
+              password: password.value,
+            })
+            .then(res => {
+              if(res.data === ''){
+                alert("Đăng nhập thất bại!");
+              }
+              else{
+                    const decoded = jwtDecode(`${res.data.token }`);
+                    store.dispatch('login',decoded)
+                    notification.open({
+                      message: 'Đăng nhập thành công',
+                      onClick: () => {
+                        console.log('Notification Clicked!');
+                      },
+                    });
+                    router.push('/')
+                    console.log(computed(() => store.state.logined));
+                  }
+            })
+          }
+        }
       }
 
     return {
