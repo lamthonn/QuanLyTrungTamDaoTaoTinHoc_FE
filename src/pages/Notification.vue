@@ -9,7 +9,17 @@
         :inline-collapsed="state.collapsed" :items="items" @click="hanldeClick"></a-menu>
     </div>
     <div style="width: 75%; ">
-      <PlusSquareOutlined style="font-size:25px;" v-if="roleData === '1' || role === '1'"/>Thêm thông báo
+      <!-- <PlusSquareOutlined style="font-size:25px;" v-if="roleData === '1' || role === '1'">Thêm thông báo</PlusSquareOutlined> -->
+      <div v-if="role === '1' || roleData === '1'" style="display: flex; justify-content: flex-end;">
+          <a-dropdown-button >
+              Khác
+              <template #overlay>
+                  <a-menu>
+                      <a-menu-item @click="showModal" key="1">Thêm thông báo</a-menu-item>
+                  </a-menu>
+              </template>
+          </a-dropdown-button>
+      </div>
       <a-tabs>
         <a-tab-pane key="1" tab="Học Viên">
           <a-collapse v-model:activeKey="activeKey1">
@@ -19,12 +29,12 @@
                 <div class="roleAdmin" style="display: grid;" v-if="roleData === '1' || role === '1'">
                   <div>
                     <a-button type="primary" @click="showModalEdit">Sửa</a-button>
-                    <a-modal v-model:open="openEdit" title="Sửa Thông Báo" @ok="EditData(hv.title)">
+                    <a-modal v-model:open="openEdit" title="Sửa Thông Báo" @ok="EditData(hv.id)">
                       <a-textarea v-model:value="EditThongBao" placeholder="Chi Tiết" :rows="4" />
                     </a-modal>
                   </div>
                   <div>
-                    <a-button type="primary" @click="btnDelete(hv.title)">Xóa</a-button>
+                    <a-button type="primary" @click="btnDelete(hv.id)">Xóa</a-button>
                   </div>
                 </div>
               </div>
@@ -39,12 +49,12 @@
               <div class="roleAdmin" style="display: grid;" v-if="roleData === '1' || role === '1'">
                   <div>
                     <a-button type="primary" @click="showModalEdit">Sửa</a-button>
-                    <a-modal v-model:open="openEdit" title="Sửa Thông Báo" @ok="EditData(gv.title)">
+                    <a-modal v-model:open="openEdit" title="Sửa Thông Báo" @ok="EditData(gv.id)">
                       <a-textarea v-model:value="EditThongBao" placeholder="Chi Tiết" :rows="4" />
                     </a-modal>
                   </div>
                   <div>
-                    <a-button type="primary" @click="btnDelete(gv.title)">Xóa</a-button>
+                    <a-button type="primary" @click="btnDelete(gv.id)">Xóa</a-button>
                   </div>
                 </div>
             </a-collapse-panel>
@@ -53,6 +63,7 @@
       </a-tabs>
     </div>
   </div>
+  <AddNotice ref="xemRef"/>
 </template>
 
 <script>
@@ -64,7 +75,9 @@ import {
   Modal,
   Button,
   Textarea,
-  Menu
+  Menu,
+  DropdownButton,
+  MenuItem
 } from 'ant-design-vue/es/components'
 import {
   MenuFoldOutlined,
@@ -77,8 +90,8 @@ import { computed, h, reactive, ref } from 'vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
 import { notification } from 'ant-design-vue';
-import { tabsProps } from 'ant-design-vue/es/tabs/src/Tabs';
 import { useRouter } from 'vue-router';
+import AddNotice from '../components/Notification/AddNotice.vue'
 export default {
   name: 'Notification',
   components: {
@@ -90,15 +103,20 @@ export default {
     AButton: Button,
     ATextarea: Textarea,
     AMenu: Menu,
+    ADropdownButton:DropdownButton,
+    AMenuItem:MenuItem,
 
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     TeamOutlined,
     MailOutlined,
-    PlusSquareOutlined 
+    PlusSquareOutlined,
+    AddNotice
   },
   setup() {
     const router = useRouter();
+    const Role = ref(localStorage.getItem("ROLE"));
+    const RoleData = computed(() => store.state.Role);
     const state = reactive({
             collapsed: false,
             selectedKeys: ['3'],
@@ -106,7 +124,6 @@ export default {
             // preOpenKeys: ['sub1'],
         });
     const items = reactive([
-        
         {
             key: '2',
             icon: () => h(TeamOutlined),
@@ -160,9 +177,9 @@ export default {
 
     //EditThongBao
     const EditThongBao = ref('');
-    const EditData = (title) => {
-      axios.put(`https://localhost:7255/api/ThongBao/${title}`,{
-        title:title,
+    const EditData = (id) => {
+      axios.put(`https://localhost:7255/api/ThongBao/${id}`,{
+        id:id,
         description:EditThongBao.value,
       })
       .then(()=>{
@@ -176,14 +193,19 @@ export default {
       })
     }
 
-    //modal
+    //modal add
+    const xemRef = ref();
+    const showModal =() => {
+            xemRef.value.visible = true
+        }
     const openEdit = ref(false);
 
     const showModalEdit = () => {
       openEdit.value = true;
     };
-    const btnDelete = async (title) => {
-      await axios.delete(`https://localhost:7255/api/ThongBao/${title}`)
+
+    const btnDelete = async (id) => {
+      await axios.delete(`https://localhost:7255/api/ThongBao/${id}`)
       .then(()=>{
         if(confirm("bạn có chắc chắn muốn xóa thông báo này?")){
           notification.open({
@@ -203,7 +225,6 @@ export default {
             });
       })
     }
-     
 
     return {
       router,
@@ -220,8 +241,10 @@ export default {
 
       openEdit,
       EditThongBao,
+      xemRef,
 
       showModalEdit,
+      showModal,
       EditData,
       btnDelete,
       toggleCollapsed,

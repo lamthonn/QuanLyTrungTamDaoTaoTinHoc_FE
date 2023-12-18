@@ -99,7 +99,6 @@
                         <template #overlay>
                             <a-menu @click="handleMenuClick">
                                 <a-menu-item @click="showModal" key="1">Thêm khóa học</a-menu-item>
-                                <a-menu-item key="2">Danh sách khóa học - dạng bảng</a-menu-item>
                             </a-menu>
                         </template>
                     </a-dropdown-button>
@@ -146,8 +145,8 @@
                         </div>
                         <div class="control" v-if="role === '1' || roleData === '1'">
                             <div class="frame">
-                                <i class="custom-btn btn-10 iconedit">Sửa</i>
-                                <i class="custom-btn btn-10 icondelete">Xóa</i>                   
+                                <i class="custom-btn btn-10 iconedit" @click="showModalEdit(course)">Sửa</i>
+                                <i class="custom-btn btn-10 icondelete" @click="deleteKhoaHoc(course)">Xóa</i>                   
                             </div>                         
                         </div>
                     </li>
@@ -195,17 +194,17 @@
                         <div class="control" v-if="role === '1' || roleData === '1'">
                             <div class="frame">
                                 
-                                <i class="custom-btn btn-10 iconedit ">Sửa</i>
-                                <i class="custom-btn btn-10 icondelete">Xóa</i>                   
+                                <i class="custom-btn btn-10 iconedit " @click="showModalEdit(course)">Sửa</i>
+                                <i class="custom-btn btn-10 icondelete" @click="deleteKhoaHoc(course)">Xóa</i>                   
                             </div>                         
                         </div>
                     </li>
                 </ul>
             </div>       
         </div>
-        
     </div>
     <AddNewCourseVue ref="xemRef"/>
+    <UpdateCourseVue ref="xemRefUpdate"></UpdateCourseVue>
 </template>
 <script>
 import { Carousel,DropdownButton,Menu, MenuItem } from 'ant-design-vue/es/components';
@@ -214,6 +213,8 @@ import axios from 'axios';
 import { useStore } from 'vuex';
 import {EllipsisOutlined,DownOutlined  } from '@ant-design/icons-vue';
 import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
+import UpdateCourseVue from '@/components/course/UpdateCourse.vue';
+
     export default {
     name: "Courses-",
     components: {
@@ -222,6 +223,7 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
         ADropdownButton: DropdownButton,
         AMenuItem: MenuItem,
         AMenu: Menu,
+        UpdateCourseVue,
         EllipsisOutlined,
         DownOutlined 
     },
@@ -236,6 +238,8 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
         const Courses3DArt = ref([]);
 
         const xemRef = ref();
+        const xemRefUpdate = ref();
+
 
         const getData = async (tenLoai) => {
             const respone = await axios.post('https://localhost:7255/api/KhoaHoc/getAllCourses',{
@@ -265,7 +269,35 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
         const handleMenuClick = e => {
             console.log('click', e);
         };
-        
+        const showModalEdit = (course) =>{
+            xemRefUpdate.value.visible = true
+            xemRefUpdate.value.record = course
+        }
+
+        const deleteKhoaHoc = (course) => {
+            if(confirm("bạn muốn xóa khóa học này?"))
+            {
+                axios.delete(`https://localhost:7255/api/KhoaHoc/${course}`)
+                .then(()=> {
+                    notification.open({
+                        message: 'Thông báo',
+                        description: 'Xóa khóa học thành công',
+                        onClick: () => {
+                            console.log('Notification Clicked!');
+                        },
+                    });
+                })
+                .catch((err)=>{
+                    notification.open({
+                        message: 'Thông báo',
+                        description: 'Xóa khóa học không thành công',
+                        onClick: () => {
+                            console.log('Notification Clicked!');
+                        },
+                    });
+                })
+            }
+        }
         return {
             store,
             CoursesApp,
@@ -273,12 +305,15 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
             role,
             roleData,
             xemRef,
+            xemRefUpdate,
 
             getCoursesApp,
             getCourses3DArt,
             showModal,
             handleButtonClick,
-            handleMenuClick
+            handleMenuClick,
+            showModalEdit,
+            deleteKhoaHoc
         }
     },
     mounted(){
@@ -288,6 +323,7 @@ import AddNewCourseVue from '@/components/course/AddNewCourse.vue';
 
         
 </script>
+
 <style scoped>
 .demo-dropdown-wrap :deep(.ant-dropdown-button) {
   margin-right: 8px;

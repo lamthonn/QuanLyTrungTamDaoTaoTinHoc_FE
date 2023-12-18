@@ -1935,10 +1935,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-4.0.3.tgz"
-  integrity sha512-fbgZbbirLx7rc19ytaGxApwS01CKLRzvEZmH0TVF06niQA9ekx7xkvfQGlmiSaCs4b8nWZi4Bo7gUzRNRt5YJA==
+ant-design-vue@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-4.0.8.tgz"
+  integrity sha512-SyPgbiPqxgXWHywxcstJN+j9N6PoZf6y5Gvvdbb+9od+uizmh2A+TnXmIHVJ44D1V1+YjXPz1EpLfIpxqDqu9A==
   dependencies:
     "@ant-design/colors" "^6.0.0"
     "@ant-design/icons-vue" "^7.0.0"
@@ -4097,6 +4097,11 @@ module-alias@^2.2.2:
   version "2.2.3"
   resolved "https://registry.npmjs.org/module-alias/-/module-alias-2.2.3.tgz"
   integrity sha512-23g5BFj4zdQL/b6tor7Ji+QY4pEfNH784BMslY9Qb0UnJWRAt+lQGLYmRaM0KDBwIG23ffEBELhZDP2rhi9f/Q==
+
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 mrmime@^1.0.0:
   version "1.0.1"

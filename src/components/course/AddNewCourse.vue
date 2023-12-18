@@ -1,5 +1,5 @@
 <template>
-    <a-modal v-model:open="visible" width="80%" :centered="true" @ok="handleOk" class="addNewCourse">
+    <a-modal v-model:open="visible" width="40%" :centered="true" @ok="handleOk" class="addNewCourse">
        <h2 class="rowCourse tittle-AddCourse">THÊM KHÓA HỌC</h2>
        <div class="rowCourse idCourse">
            <input class ="inputCourse" type="maKH" id="mã khóa học" name="makH" v-model="maKH" placeholder="Nhập mã khóa học" required>
@@ -205,9 +205,9 @@ h2.rowCourse.tittle-AddCourse {
    font-weight: bold;
    color: #2e8457;
 }
-.ant-modal-content {
+/* .ant-modal-content {
    width: 600px;
-}
+} */
 
 .rowCourse{
    margin-bottom: 15px;
