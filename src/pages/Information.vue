@@ -55,7 +55,7 @@
                             <div class="icon">
                                 <UserOutlined style="margin-right:10px; font-size:20px;" />
                             </div>
-                            <div >
+                            <div>
                                 <p style="margin:0;">Họ và tên:</p>
                                 <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ name }}</p>
                             </div>
@@ -99,7 +99,8 @@
                             </div>
                             <div>
                                 <p style="margin:0;">Ngày sinh:</p>
-                                <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ date ? date : "--trống--" }}
+                                <p style="color:rgb(13, 194, 134); font-size:20px; margin:0;">{{ date ? date : "--trống--"
+                                }}
                                 </p>
                             </div>
                         </div>
@@ -131,7 +132,7 @@ import {
     Button,
     Modal,
     Input,
-notification
+    notification
 } from 'ant-design-vue/es/components'
 import {
     GlobalOutlined,
@@ -176,7 +177,7 @@ export default {
         const formState = reactive({
             hotentxt: name ? name : '',
             emailtxt: email ? email : '',
-            phonetxt: phone? phone : '',
+            phonetxt: phone ? phone : '',
             address_txt: address ? address : '',
             datetxt: date ? date : '',
             sextxt: sex ? sex : '',
@@ -190,31 +191,32 @@ export default {
 
         //Update
         const handleOk = () => {
-            axios.put(`https://localhost:7255/api/HocVien/Update/${username.value}`,{
+            axios.put(`https://localhost:7255/api/HocVien/Update/${username.value}`, {
                 "maHV": username.value,
-                "tenHV":formState.hotentxt,
+                "tenHV": formState.hotentxt,
                 "diaChi": formState.address_txt,
                 "sdt": formState.phonetxt,
                 "email": formState.emailtxt,
                 "ngaySinh": formState.datetxt,
                 "gioiTinh": formState.address_txt
             })
-            .then(() => {
-                notification.open({
-                      message: 'sửa thông tin thành công!',
-                      onClick: () => {
-                        console.log('Notification Clicked!');
-                      },
+                .then(() => {
+                    notification.open({
+                        message: 'sửa thông tin thành công!',
+                        onClick: () => {
+                            console.log('Notification Clicked!');
+                        },
                     });
-            })
-            .catch((err) => {
-                notification.open({
-                      message: 'sửa thất bại!!',
-                      onClick: () => {
-                        console.log('Notification Clicked!');
-                      },
+                    openInformation.value = false;
+                })
+                .catch((err) => {
+                    notification.open({
+                        message: 'sửa thất bại!!',
+                        onClick: () => {
+                            console.log('Notification Clicked!');
+                        },
                     });
-            })
+                })
 
         }
 
@@ -326,4 +328,5 @@ export default {
     font-size: 25px;
     font-weight: bold;
     color: #198754;
-}</style>
+}
+</style>
